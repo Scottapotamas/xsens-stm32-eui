@@ -22,5 +22,30 @@ export type LEDSettings = {
   enable: number
 }
 
+
+export type SystemInfo = {
+  cpu_load: number
+  cpu_clock: number
+}
+
+export type TaskStatistics = {
+  id: number
+  ready: boolean
+  queue_used: number
+  queue_max: number
+  waiting_max: number
+  burst_max: number
+  name: string
+}
+
+export type FirmwareBuildInfo = {
+  branch: string
+  info: string
+  date: string
+  time: string
+  type: string
+  name: string
+}
+
 // This exports these types into the dependency tree.
 export {}

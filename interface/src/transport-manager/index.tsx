@@ -7,5 +7,9 @@ import { setupTransportWindow } from '@electricui/utility-electron'
 const root = document.createElement('div')
 document.body.appendChild(root)
 
-setupProxyAndDebugInterface(root, deviceManager, module.hot)
+const hotReloadHandler = setupProxyAndDebugInterface(root, deviceManager)
 setupTransportWindow()
+
+if (module.hot) {
+  module.hot.accept('./config', () => hotReloadHandler(root, deviceManager))
+}

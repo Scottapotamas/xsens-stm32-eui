@@ -122,4 +122,9 @@ deviceManager.poll(cancellationToken).catch(err => {
   }
 })
 
-hotReloadDeviceManager(deviceManager, module.hot)
+const [dispose, refresh] = hotReloadDeviceManager(deviceManager)
+
+if (module.hot) {
+  module.hot.dispose(dispose)
+  refresh(module.hot.data)
+}
