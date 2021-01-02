@@ -1881,6 +1881,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@electricui/utility-bitfields@npm:^0.8.0":
+  version: 0.8.0
+  resolution: "@electricui/utility-bitfields@npm:0.8.0"
+  dependencies:
+    debug: ^4.3.1
+  checksum: d282da0aa3ec20f078599d3bb874e690825b1950a8583775d31d278245ee79a90e54316ff94fc36ae0ae7dc07a69db0081a096012c3e18020804ed3e77450bae
+  languageName: node
+  linkType: hard
+
 "@electricui/utility-crc16@npm:^0.8.0":
   version: 0.8.0
   resolution: "@electricui/utility-crc16@npm:0.8.0"
@@ -15766,6 +15775,7 @@ typescript@^3.7.2:
     "@electricui/transport-node-serial": ^0.8.2
     "@electricui/transport-node-usb-discovery": ^0.8.2
     "@electricui/transport-node-websocket": ^0.8.2
+    "@electricui/utility-bitfields": ^0.8.0
     "@electricui/utility-crc16": ^0.8.0
     "@electricui/utility-electron": ^0.8.0
     "@electricui/utility-ipc": ^0.8.0

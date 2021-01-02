@@ -47,5 +47,20 @@ export type FirmwareBuildInfo = {
   name: string
 }
 
+export type IMUStatus = {
+  self_test: boolean
+  filter_ok: boolean
+  clipping: boolean
+  clip_acc_x: boolean
+  clip_acc_y: boolean
+  clip_acc_z: boolean
+  clip_gyro_x: boolean
+  clip_gyro_y: boolean
+  clip_gyro_z: boolean
+  clip_mag_x: boolean
+  clip_mag_y: boolean
+  clip_mag_z: boolean
+}
+
 // This exports these types into the dependency tree.
 export {}

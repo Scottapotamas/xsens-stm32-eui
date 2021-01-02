@@ -93,6 +93,9 @@ config_update_pressure( uint32_t pressure );
 PUBLIC void
 config_update_imu_temperature( float temp );
 
+PUBLIC void
+config_update_imu_status_fields( uint32_t word );
+
 /* ----- End ---------------------------------------------------------------- */
 
 #ifdef __cplusplus

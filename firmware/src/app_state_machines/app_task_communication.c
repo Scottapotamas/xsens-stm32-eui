@@ -340,6 +340,10 @@ PRIVATE void AppTaskCommunication_imu_callback_event( EventFlag_t event, EventDa
             break;
 
         case XSENS_EVT_STATUS_WORD:
+            if( mtdata->type == XSENS_EVT_TYPE_U32 )
+            {
+                config_update_imu_status_fields( mtdata->data.u4 );
+            }
 
             break;
     }

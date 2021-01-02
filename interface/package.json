@@ -66,6 +66,7 @@
     "@electricui/transport-node-serial": "^0.8.2",
     "@electricui/transport-node-usb-discovery": "^0.8.2",
     "@electricui/transport-node-websocket": "^0.8.2",
+    "@electricui/utility-bitfields": "^0.8.0",
     "@electricui/utility-crc16": "^0.8.0",
     "@electricui/utility-electron": "^0.8.0",
     "@electricui/utility-ipc": "^0.8.0",

@@ -52,6 +52,8 @@ float cpu_temp;
 char device_nickname[16] = "xsens-mti";
 char reset_cause[20]     = "No Reset Cause";
 
+uint32_t sensor_status = { 0 };
+
 // IMU data
 float pry[3] = { 0 };
 float acceleration[3] = { 0 };
@@ -76,7 +78,7 @@ eui_message_t ui_variables[] = {
     EUI_FLOAT_ARRAY_RO( "mag", magnetics ),
     EUI_UINT32_RO( "baro", imu_pressure ),
     EUI_FLOAT_RO( "temp", imu_temperature ),
-
+    EUI_CUSTOM_RO( "ok", sensor_status),
 };
 
 /* ----- Public Functions --------------------------------------------------- */
@@ -286,6 +288,16 @@ config_update_imu_temperature( float temp )
 }
 
 
+PUBLIC void
+config_update_imu_status_fields( uint32_t word )
+{
+    // Only send if the status changes
+    if( sensor_status != word )
+    {
+        sensor_status = word;
+        eui_send_tracked( "ok" );
+    }
+}
 
 /* ----- Private Functions -------------------------------------------------- */
 

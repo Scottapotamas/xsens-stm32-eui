@@ -1,7 +1,14 @@
 import { Codec, Message } from '@electricui/core'
 
-import { SystemInfo } from '../../application/typedState'
+import {
+  SystemInfo,
+  TaskStatistics,
+  FirmwareBuildInfo,
+  IMUStatus,
+} from '../../application/typedState'
 import { SmartBuffer } from 'smart-buffer'
+
+import { Pack, Unpack, BitFieldObject } from '@electricui/utility-bitfields'
 
 export class SystemInfoCodec extends Codec<SystemInfo> {
   filter(message: Message): boolean {
@@ -103,9 +110,99 @@ export class FirmwareInfoCodec extends Codec {
   }
 }
 
+const bitFieldOrder = [
+  'reserved_0',
+  'clock_bias_estimation',
+  'representitive_motion',
+  'no_rotation_status_1',
+  'no_rotation_status_0',
+  'gnss_fix',
+  'filter_valid',
+  'self_test', // lowest bit
+
+  'clip_mag_y',
+  'clip_mag_x',
+  'clip_gyro_z',
+  'clip_gyro_y',
+  'clip_gyro_x',
+  'clip_acc_z',
+  'clip_acc_y',
+  'clip_acc_x',
+
+  'filter_mode_0',
+  'sync_out_mark',
+  'sync_in_mark',
+  'reserved_3',
+  'clipping',
+  'reserved_2',
+  'reserved_1',
+  'clip_mag_z',
+
+  'reserved_6', // highest bit
+  'reserved_5',
+  'reserved_4',
+  'rtk_status_1',
+  'rtk_status_0',
+  'has_gnss_pulse',
+  'filter_mode_2',
+  'filter_mode_1',
+]
+
+// const bitFieldOrder = [
+//   'self_test', // lowest bit
+//   'filter_valid',
+//   'gnss_fix',
+//   'no_rotation_status_0',
+//   'no_rotation_status_1',
+//   'representitive_motion',
+//   'clock_bias_estimation',
+//   'reserved_0',
+//   'clip_acc_x',
+//   'clip_acc_y',
+//   'clip_acc_z',
+//   'clip_gyro_x',
+//   'clip_gyro_y',
+//   'clip_gyro_z',
+//   'clip_mag_x',
+//   'clip_mag_y',
+//   'clip_mag_z',
+//   'reserved_1',
+//   'reserved_2',
+//   'reserved_3',
+//   'reserved_4',
+//   'clipping',
+//   'reserved_5',
+//   'sync_in_mark',
+//   'sync_out_mark',
+//   'filter_mode_0',
+//   'filter_mode_1',
+//   'filter_mode_2',
+//   'has_gnss_pulse',
+//   'rtk_status_0',
+//   'rtk_status_1',
+//   'reserved_6',
+//   'reserved_7',
+//   'reserved_8', // highest bit
+// ]
+
+export class IMUStatusCodec extends Codec<IMUStatus> {
+  filter(message: Message): boolean {
+    return message.messageID === 'ok'
+  }
+
+  encode(payload: IMUStatus): Buffer {
+    throw new Error('IMU Status word bits is read-only')
+  }
+
+  decode(payload: Buffer): IMUStatus {
+    return Unpack(payload, bitFieldOrder)
+  }
+}
+
 // Create the instances of the codecs
 export const customCodecs = [
   new SystemInfoCodec(),
   new TaskStatisticsCodec(),
   new FirmwareInfoCodec(),
+  new IMUStatusCodec(),
 ]
