@@ -4,6 +4,10 @@ import {
   RealTimeDomain,
   TimeAxis,
   VerticalAxis,
+  HorizontalAxis,
+  TimeSlicedLineChart,
+  RealTimeSlicingDomain,
+  Fog,
 } from '@electricui/components-desktop-charts'
 
 import {
@@ -20,7 +24,6 @@ import {
   IntervalRequester,
   useHardwareState,
 } from '@electricui/components-core'
-import { LightBulb } from '../../components/LightBulb'
 import { MessageDataSource } from '@electricui/core-timeseries'
 import React from 'react'
 import { RouteComponentProps } from '@reach/router'
@@ -40,6 +43,33 @@ const layoutDescription = `
 
 const accDS = new MessageDataSource('acc')
 
+const ClippingLegend = () => {
+  const clip_x = useHardwareState<boolean>(hwState => hwState.ok.clip_acc_x)!
+  const clip_y = useHardwareState<boolean>(hwState => hwState.ok.clip_acc_y)!
+  const clip_z = useHardwareState<boolean>(hwState => hwState.ok.clip_acc_z)!
+
+  return (
+    <React.Fragment>
+      <Composition
+        templateCols="auto auto auto"
+        justifyContent="end"
+        justifyItems="end"
+        gapCol={10}
+      >
+        <Tag intent={Intent.SUCCESS} minimal={clip_x} fill>
+          <b>X:</b> <Printer accessor={state => state.acc[0]} precision={2} />
+        </Tag>
+        <Tag intent={Intent.PRIMARY} minimal={clip_y} fill>
+          <b>Y:</b> <Printer accessor={state => state.acc[1]} precision={2} />
+        </Tag>
+        <Tag intent={Intent.DANGER} minimal={clip_z} fill>
+          <b>Z:</b> <Printer accessor={state => state.acc[2]} precision={2} />
+        </Tag>
+      </Composition>
+    </React.Fragment>
+  )
+}
+
 export const AccelerationChart = () => {
   return (
     <React.Fragment>
@@ -52,30 +82,28 @@ export const AccelerationChart = () => {
               </div>
             </Areas.Title>
             <Areas.Legend>
-              <Composition
-                templateCols="auto auto auto"
-                justifyContent="end"
-                justifyItems="end"
-                gapCol={10}
-              >
-                <Tag intent={Intent.SUCCESS} minimal fill>
-                  <b>X:</b>{' '}
-                  <Printer accessor={state => state.acc[0]} precision={2} />
-                </Tag>
-                <Tag intent={Intent.PRIMARY} minimal fill>
-                  <b>Y:</b>{' '}
-                  <Printer accessor={state => state.acc[1]} precision={2} />
-                </Tag>
-                <Tag intent={Intent.DANGER} minimal fill>
-                  <b>Z:</b>{' '}
-                  <Printer accessor={state => state.acc[2]} precision={2} />
-                </Tag>
-              </Composition>
+              <ClippingLegend />
             </Areas.Legend>
 
             <Areas.Chart>
-              <ChartContainer>
+              <ChartContainer height="300px">
                 {/* height="12vh" */}
+                <TimeSlicedLineChart
+                  dataSource={accDS}
+                  xAccessor={event => event[0]}
+                  yAccessor={event => event[1]}
+                  color={Colors.GOLD4}
+                  lineWidth={4}
+                />
+                <RealTimeSlicingDomain
+                  window={500}
+                  xMin={-15}
+                  xMax={15}
+                  yMin={-15}
+                  yMax={15}
+                />
+                <Fog color="#191b1d" />
+                {/* 
                 <LineChart
                   dataSource={accDS}
                   accessor={event => event[0]}
@@ -91,8 +119,10 @@ export const AccelerationChart = () => {
                   accessor={event => event[2]}
                   color={Colors.RED4}
                 />
-                <RealTimeDomain window={[10000, 30000]} />
-                <TimeAxis />
+                <RealTimeDomain window={10000} />
+                 */}
+                {/* <TimeAxis /> */}
+                <HorizontalAxis />
                 <VerticalAxis />
               </ChartContainer>
             </Areas.Chart>

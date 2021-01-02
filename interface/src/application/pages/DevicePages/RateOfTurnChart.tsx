@@ -1,10 +1,12 @@
 import {
   ChartContainer,
+  HorizontalAnnotation,
   LineChart,
   RealTimeDomain,
   TimeAxis,
   VerticalAxis,
 } from '@electricui/components-desktop-charts'
+import { Event } from '@electricui/timeseries'
 
 import {
   Card,
@@ -20,7 +22,6 @@ import {
   IntervalRequester,
   useHardwareState,
 } from '@electricui/components-core'
-import { LightBulb } from '../../components/LightBulb'
 import { MessageDataSource } from '@electricui/core-timeseries'
 import React from 'react'
 import { RouteComponentProps } from '@reach/router'
@@ -40,6 +41,46 @@ const layoutDescription = `
 
 const rateOfTurnDS = new MessageDataSource('rot')
 
+const clipAnnotationDS = new MessageDataSource('ok', (message, emit) => {
+  // Build the event at the current time
+  if (
+    message.payload.clip_gyro_x ||
+    message.payload.clip_gyro_y ||
+    message.payload.clip_gyro_z
+  ) {
+    const event = new Event(message.metadata.timestamp, 5)
+    // Emit the event
+    emit(event)
+  }
+})
+
+const ClippingLegend = () => {
+  const clip_x = useHardwareState<boolean>(hwState => hwState.ok.clip_gyro_x)!
+  const clip_y = useHardwareState<boolean>(hwState => hwState.ok.clip_gyro_y)!
+  const clip_z = useHardwareState<boolean>(hwState => hwState.ok.clip_gyro_z)!
+
+  return (
+    <React.Fragment>
+      <Composition
+        templateCols="auto auto auto"
+        justifyContent="end"
+        justifyItems="end"
+        gapCol={10}
+      >
+        <Tag intent={Intent.SUCCESS} minimal={clip_x} fill>
+          <b>X:</b> <Printer accessor={state => state.rot[0]} precision={2} />
+        </Tag>
+        <Tag intent={Intent.PRIMARY} minimal={clip_y} fill>
+          <b>Y:</b> <Printer accessor={state => state.rot[1]} precision={2} />
+        </Tag>
+        <Tag intent={Intent.DANGER} minimal={clip_z} fill>
+          <b>Z:</b> <Printer accessor={state => state.rot[2]} precision={2} />
+        </Tag>
+      </Composition>
+    </React.Fragment>
+  )
+}
+
 export const RateOfTurnChart = () => {
   return (
     <React.Fragment>
@@ -52,25 +93,7 @@ export const RateOfTurnChart = () => {
               </div>
             </Areas.Title>
             <Areas.Legend>
-              <Composition
-                templateCols="auto auto auto"
-                justifyContent="end"
-                justifyItems="end"
-                gapCol={10}
-              >
-                <Tag intent={Intent.SUCCESS} minimal fill>
-                  <b>X:</b>{' '}
-                  <Printer accessor={state => state.rot[0]} precision={2} />
-                </Tag>
-                <Tag intent={Intent.PRIMARY} minimal fill>
-                  <b>Y:</b>{' '}
-                  <Printer accessor={state => state.rot[1]} precision={2} />
-                </Tag>
-                <Tag intent={Intent.DANGER} minimal fill>
-                  <b>Z:</b>{' '}
-                  <Printer accessor={state => state.rot[2]} precision={2} />
-                </Tag>
-              </Composition>
+              <ClippingLegend />
             </Areas.Legend>
 
             <Areas.Chart>
@@ -91,7 +114,10 @@ export const RateOfTurnChart = () => {
                   accessor={event => event[2]}
                   color={Colors.RED4}
                 />
-                <RealTimeDomain window={[10000, 30000]} />
+                <HorizontalAnnotation y={4.5} />
+                <HorizontalAnnotation y={-4.5} />
+
+                <RealTimeDomain window={10000} />
                 <TimeAxis />
                 <VerticalAxis />
               </ChartContainer>
