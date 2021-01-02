@@ -25,10 +25,11 @@ DEFINE_THIS_FILE; /* Used for ASSERT checks to define __FILE__ only once */
 
 /* ----- Defines ------------------------------------------------------------ */
 
-#define HAL_UART_RX_FIFO_SIZE 250
+#define HAL_UART_RX_FIFO_SIZE 512
 #define HAL_UART_TX_FIFO_SIZE 1024
 
-#define HAL_UART_RX_DMA_BUFFER_SIZE 64
+#define HAL_UART_RX_DMA_BUFFER_SIZE 128
+#define HAL_UART_TX_DMA_CHUNK_SIZE 64
 
 /* ----- Types -------------------------------------------------------------- */
 
@@ -122,8 +123,8 @@ hal_uart_init( HalUartPort_t port )
             LL_USART_Enable( h->usart );
             break;
 
-        case HAL_UART_PORT_INTERNAL:
-            h->port           = HAL_UART_PORT_INTERNAL;
+        case HAL_UART_PORT_IMU:
+            h->port           = HAL_UART_PORT_IMU;
             h->usart          = USART1;
             h->dma_peripheral = DMA2;
             h->dma_stream_tx  = LL_DMA_STREAM_7;
@@ -140,8 +141,8 @@ hal_uart_init( HalUartPort_t port )
             hal_gpio_init_alternate( _AUX_UART_RX, LL_GPIO_AF_7, LL_GPIO_SPEED_FREQ_VERY_HIGH, LL_GPIO_PULL_NO );
             hal_gpio_init_alternate( _AUX_UART_TX, LL_GPIO_AF_7, LL_GPIO_SPEED_FREQ_VERY_HIGH, LL_GPIO_PULL_NO );
 
-            hal_uart_dma_init( HAL_UART_PORT_INTERNAL );
-            hal_uart_peripheral_init( h->usart, INTERNAL_BAUD );
+            hal_uart_dma_init( HAL_UART_PORT_IMU );
+            hal_uart_peripheral_init( h->usart, IMU_BAUD );
 
             LL_DMA_EnableStream( h->dma_peripheral, h->dma_stream_rx );    // rx stream
             LL_USART_Enable( h->usart );
@@ -571,9 +572,9 @@ hal_uart_start_tx( HalUart_t *h )
         h->tx_sneak_bytes = fifo_used_linear( &h->tx_fifo );
 
         // Limit maximum size to transmit at a time
-        if( h->tx_sneak_bytes > 32 )
+        if( h->tx_sneak_bytes > HAL_UART_TX_DMA_CHUNK_SIZE )
         {
-            h->tx_sneak_bytes = 32;
+            h->tx_sneak_bytes = HAL_UART_TX_DMA_CHUNK_SIZE;
         }
 
         // Transmit remaining data
@@ -698,7 +699,7 @@ void USART1_IRQHandler( void )
     if( LL_USART_IsEnabledIT_IDLE( USART1 ) && LL_USART_IsActiveFlag_IDLE( USART1 ) )
     {
         LL_USART_ClearFlag_IDLE( USART1 );
-        hal_usart_irq_rx_handler( &hal_uart[HAL_UART_PORT_INTERNAL] );
+        hal_usart_irq_rx_handler( &hal_uart[HAL_UART_PORT_IMU] );
     }
 }
 
@@ -709,14 +710,14 @@ void DMA2_Stream2_IRQHandler( void )
     if( LL_DMA_IsEnabledIT_HT( DMA2, LL_DMA_STREAM_2 ) && LL_DMA_IsActiveFlag_HT2( DMA2 ) )
     {
         LL_DMA_ClearFlag_HT2( DMA2 );
-        hal_usart_irq_rx_handler( &hal_uart[HAL_UART_PORT_INTERNAL] );
+        hal_usart_irq_rx_handler( &hal_uart[HAL_UART_PORT_IMU] );
     }
 
     // Full transfer complete
     if( LL_DMA_IsEnabledIT_TC( DMA2, LL_DMA_STREAM_2 ) && LL_DMA_IsActiveFlag_TC2( DMA2 ) )
     {
         LL_DMA_ClearFlag_TC2( DMA2 );
-        hal_usart_irq_rx_handler( &hal_uart[HAL_UART_PORT_INTERNAL] );
+        hal_usart_irq_rx_handler( &hal_uart[HAL_UART_PORT_IMU] );
     }
 }
 
@@ -726,7 +727,7 @@ void DMA2_Stream7_IRQHandler( void )
     if( LL_DMA_IsEnabledIT_TC( DMA2, LL_DMA_STREAM_7 ) && LL_DMA_IsActiveFlag_TC7( DMA2 ) )
     {
         LL_DMA_ClearFlag_TC7( DMA2 );
-        hal_uart_completed_tx( &hal_uart[HAL_UART_PORT_INTERNAL] );
+        hal_uart_completed_tx( &hal_uart[HAL_UART_PORT_IMU] );
     }
 }
 

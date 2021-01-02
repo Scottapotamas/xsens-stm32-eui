@@ -118,7 +118,7 @@ void app_tasks_init( void )
 
   t = appTaskCommunicationCreate( &appTaskCommunication,
                                   appTaskCommunicationEventQueue,
-                                  DIM( appTaskCommunicationEventQueue ), INTERFACE_UART_INTERNAL);
+                                  DIM( appTaskCommunicationEventQueue ), INTERFACE_UART_IMU );
 
   stateTaskerAddTask( &mainTasker, t, TASK_IMU, "IMU" );
   stateTaskerStartTask( &mainTasker, t );

@@ -23,7 +23,7 @@ PRIVATE void AppTaskCommunicationConstructor( AppTaskCommunication *me );
 
 PRIVATE void AppTaskCommunication_initial( AppTaskCommunication *me, const StateEvent *e );
 
-PRIVATE void AppTaskCommunication_tx_put_internal( uint8_t *c, uint16_t length );
+PRIVATE void AppTaskCommunication_tx_put_imu( uint8_t *c, uint16_t length );
 
 PRIVATE void AppTaskCommunication_tx_put_external( uint8_t *c, uint16_t length );
 
@@ -60,7 +60,7 @@ eui_interface_t communication_interface[] = {
     EUI_INTERFACE_CB( &AppTaskCommunication_tx_put_usb, &AppTaskCommunication_eui_callback_usb ),
 };
 
-interface_t imu_interface = { .event_cb = &AppTaskCommunication_imu_callback_event, .output_cb = &AppTaskCommunication_tx_put_internal };
+interface_t imu_interface = { .event_cb = &AppTaskCommunication_imu_callback_event, .output_cb = &AppTaskCommunication_tx_put_imu };
 
 /* ----- Public Functions --------------------------------------------------- */
 
@@ -138,8 +138,8 @@ PRIVATE STATE AppTaskCommunication_electric_ui( AppTaskCommunication *me,
                     hal_uart_init( HAL_UART_PORT_PC );
                     break;
 
-                case INTERFACE_UART_INTERNAL:
-                    hal_uart_init( HAL_UART_PORT_INTERNAL );
+                case INTERFACE_UART_IMU:
+                    hal_uart_init( HAL_UART_PORT_IMU );
                     break;
 
                 case INTERFACE_UART_EXTERNAL:
@@ -175,9 +175,9 @@ AppTaskCommunication_tx_put_external( uint8_t *c, uint16_t length )
 }
 
 PRIVATE void
-AppTaskCommunication_tx_put_internal( uint8_t *c, uint16_t length )
+AppTaskCommunication_tx_put_imu( uint8_t *c, uint16_t length )
 {
-    hal_uart_write( HAL_UART_PORT_INTERNAL, c, length );
+    hal_uart_write( HAL_UART_PORT_IMU, c, length );
 }
 
 PRIVATE void AppTaskCommunication_tx_put_pc( uint8_t *c, uint16_t length )
@@ -205,7 +205,7 @@ AppTaskCommunication_rx_callback_uart( HalUartPort_t port, uint8_t c )
             // TODO Use this serial port
             break;
 
-        case HAL_UART_PORT_INTERNAL:
+        case HAL_UART_PORT_IMU:
             // IMU
             xsens_mti_parse( &imu_interface, c );
             break;
@@ -232,9 +232,9 @@ AppTaskCommunication_rx_tick( void )
         eui_parse( hal_uart_rx_get( HAL_UART_PORT_PC ), &communication_interface[LINK_PC] );
     }
 
-    while( hal_uart_rx_data_available( HAL_UART_PORT_INTERNAL ) )
+    while( hal_uart_rx_data_available( HAL_UART_PORT_IMU ) )
     {
-        xsens_mti_parse( &imu_interface, hal_uart_rx_get( HAL_UART_PORT_INTERNAL ) );
+        xsens_mti_parse( &imu_interface, hal_uart_rx_get( HAL_UART_PORT_IMU ) );
     }
 }
 
