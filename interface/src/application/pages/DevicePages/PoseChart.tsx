@@ -91,7 +91,7 @@ export const PoseChart = () => {
                   accessor={event => event[2]}
                   color={Colors.RED4}
                 />
-                <RealTimeDomain window={[10000, 30000]} />
+                <RealTimeDomain window={10000} />
                 <TimeAxis />
                 <VerticalAxis />
               </ChartContainer>

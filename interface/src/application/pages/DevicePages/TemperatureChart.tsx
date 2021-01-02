@@ -70,7 +70,7 @@ export const TemperatureChart = () => {
                 {/* height="12vh" */}
                 <LineChart dataSource={tempDS} color={Colors.ORANGE4} />
 
-                <RealTimeDomain window={[10000, 30000]} yMin={10} yMax={50} />
+                <RealTimeDomain window={10000} yMin={10} yMax={50} />
                 <TimeAxis />
                 <VerticalAxis />
               </ChartContainer>

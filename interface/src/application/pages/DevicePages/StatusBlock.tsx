@@ -1,6 +1,7 @@
 import {
   ChartContainer,
   LineChart,
+  PointAnnotation,
   RealTimeDomain,
   TimeAxis,
   VerticalAxis,
@@ -20,7 +21,6 @@ import {
   IntervalRequester,
   useHardwareState,
 } from '@electricui/components-core'
-import { LightBulb } from '../../components/LightBulb'
 import { MessageDataSource } from '@electricui/core-timeseries'
 import React from 'react'
 import { RouteComponentProps } from '@reach/router'
@@ -34,37 +34,19 @@ import { Printer } from '@electricui/components-desktop'
 import { IconNames } from '@blueprintjs/icons'
 
 const layoutDescription = `
-        Title Legend
-        Chart Chart
-      `
+          Title Legend
+          Chart Chart
+        `
 
 const baroDS = new MessageDataSource('baro')
 
-export const PressureChart = () => {
+export const StatusBlock = () => {
   return (
     <React.Fragment>
       <Composition areas={layoutDescription} gap={10} autoCols="1fr">
         {Areas => (
           <React.Fragment>
-            <Areas.Title>
-              <div style={{ textAlign: 'left', marginLeft: '4em' }}>
-                <b>BAROMETRIC PRESSURE</b>
-              </div>
-            </Areas.Title>
-            <Areas.Legend>
-              <Composition
-                templateCols="auto auto auto"
-                justifyContent="end"
-                justifyItems="end"
-                gapCol={10}
-              >
-                <Tag intent={Intent.NONE} minimal fill>
-                  <b>BARO:</b>{' '}
-                  <Printer accessor={state => state.baro / 100} precision={2} />
-                </Tag>
-              </Composition>
-            </Areas.Legend>
-
+            <Areas.Title>Blah status and stuff</Areas.Title>
             <Areas.Chart>
               <ChartContainer>
                 {/* height="12vh" */}
@@ -73,10 +55,19 @@ export const PressureChart = () => {
                   accessor={event => event / 100}
                   color={Colors.GRAY4}
                 />
-
-                <RealTimeDomain window={10000} />
-                <TimeAxis />
                 <VerticalAxis />
+                <RealTimeDomain window={10000} yMin={990} yMax={1020} />
+                <PointAnnotation
+                  dataSource={baroDS}
+                  xAccessor={(event, time) => time + 200}
+                  y={1000}
+                >
+                  <div>
+                    BAROMETRIC PRESSURE
+                    <br />
+                    $VALUE
+                  </div>
+                </PointAnnotation>
               </ChartContainer>
             </Areas.Chart>
           </React.Fragment>
