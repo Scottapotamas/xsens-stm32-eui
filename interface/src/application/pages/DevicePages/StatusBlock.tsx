@@ -38,8 +38,6 @@ const layoutDescription = `
           Chart Chart
         `
 
-const baroDS = new MessageDataSource('baro')
-
 export const StatusBlock = () => {
   return (
     <React.Fragment>
@@ -47,29 +45,7 @@ export const StatusBlock = () => {
         {Areas => (
           <React.Fragment>
             <Areas.Title>Blah status and stuff</Areas.Title>
-            <Areas.Chart>
-              <ChartContainer>
-                {/* height="12vh" */}
-                <LineChart
-                  dataSource={baroDS}
-                  accessor={event => event / 100}
-                  color={Colors.GRAY4}
-                />
-                <VerticalAxis />
-                <RealTimeDomain window={10000} yMin={990} yMax={1020} />
-                <PointAnnotation
-                  dataSource={baroDS}
-                  xAccessor={(event, time) => time + 200}
-                  y={1000}
-                >
-                  <div>
-                    BAROMETRIC PRESSURE
-                    <br />
-                    $VALUE
-                  </div>
-                </PointAnnotation>
-              </ChartContainer>
-            </Areas.Chart>
+            <Areas.Chart></Areas.Chart>
           </React.Fragment>
         )}
       </Composition>

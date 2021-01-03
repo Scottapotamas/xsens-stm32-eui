@@ -11,7 +11,6 @@ import { AccelerationChart } from './AccelerationChart'
 import { FreeAccelerationChart } from './FreeAccelerationChart'
 import { RateOfTurnChart } from './RateOfTurnChart'
 import { MagnetometerChart } from './MagnetometerChart'
-import { PressureChart } from './PressureChart'
 import { TemperatureChart } from './TemperatureChart'
 import { IMUPose3D } from './IMUPose3D'
 
@@ -30,9 +29,7 @@ export const OverviewPage = (props: RouteComponentProps) => {
         {Areas => (
           <React.Fragment>
             <Areas.Control>
-              <Card>
-                <ControlBlock />
-              </Card>
+              <ControlBlock />
             </Areas.Control>
             <Areas.Status>
               <Card>

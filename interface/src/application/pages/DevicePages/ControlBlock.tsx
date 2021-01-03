@@ -14,15 +14,16 @@ import {
   Intent,
   IconName,
   Tooltip,
+  Callout,
 } from '@blueprintjs/core'
-import { Composition } from 'atomic-layout'
+import { Composition, Box } from 'atomic-layout'
 import {
   IntervalRequester,
   useHardwareState,
 } from '@electricui/components-core'
+import { PolledCSVLogger } from '@electricui/components-desktop-blueprint-loggers'
 import { MessageDataSource } from '@electricui/core-timeseries'
 import React from 'react'
-import { RouteComponentProps } from '@reach/router'
 import {
   Slider,
   Dropdown,
@@ -142,6 +143,97 @@ export const ClippingStatus = () => {
   )
 }
 
+const CPUStatus = () => {
+  return (
+    <React.Fragment>
+      <Callout title="Microcontroller Info" icon="pulse">
+        <Composition templateCols="1fr 1fr">
+          <Box>CPU</Box>
+          <Box>
+            <Printer accessor={state => state.sys.cpu_load} precision={1} />% @{' '}
+            <Printer accessor={state => state.sys.cpu_clock} precision={1} />{' '}
+            MHz
+          </Box>
+          <Box></Box>
+          <Box>
+            <br />
+          </Box>
+          <Box>Branch</Box>
+          <Box>
+            <Printer accessor={state => state.fwb.branch} />
+          </Box>
+          <Box>Date</Box>
+          <Box>
+            <Printer accessor={state => state.fwb.date} />
+          </Box>
+          <Box>Hash</Box>
+          <Box>
+            <Printer accessor={state => state.fwb.info} />
+          </Box>
+        </Composition>
+      </Callout>
+    </React.Fragment>
+  )
+}
+
+// : string
+// info: string
+// date: string
+// time: string
+// type: string
+// name: string
+
+const TemperaturePressure = () => {
+  return (
+    <React.Fragment>
+      <Callout title="xsens MTi-300" icon="cube">
+        <Composition templateCols="1fr 1fr">
+          <Box>Hardware</Box>
+          <Box>2.0 </Box>
+          <Box>Firmware</Box>
+          <Box>1.8.x </Box>
+          <Box> </Box>
+
+          <Box>
+            <br />
+          </Box>
+
+          <Box>Self-Test</Box>
+          <Box>
+            <Printer accessor={state => state.ok.self_test} />
+          </Box>
+
+          <Box>Time (Fine)</Box>
+          <Box>xxx </Box>
+          <Box>Temperature</Box>
+          <Box>
+            <Printer accessor="temp" precision={1} /> °C
+          </Box>
+          <Box>Pressure</Box>
+          <Box>
+            <Printer accessor={state => state.baro / 100} precision={1} /> hpa
+          </Box>
+        </Composition>
+      </Callout>
+    </React.Fragment>
+  )
+}
+
+const accDS = new MessageDataSource('acc')
+const rotDS = new MessageDataSource('rot')
+
+const LoggingControls = () => {
+  return (
+    <React.Fragment>
+      <PolledCSVLogger
+        dataSource={[]}
+        interval={10}
+        columns={['x', 'y', 'z']}
+      />
+    </React.Fragment>
+  )
+}
+
 export const ControlBlock = () => {
   return (
     <React.Fragment>
@@ -149,7 +241,16 @@ export const ControlBlock = () => {
 
       <Composition gap={10} autoCols="1fr">
         <h3>IMU Info</h3>
-        <ClippingStatus />
+        <CPUStatus />
+        <br />
+        <TemperaturePressure />
+        <br />
+        <Card>
+          <LoggingControls />
+        </Card>
+        <Card>
+          <ClippingStatus />
+        </Card>
       </Composition>
     </React.Fragment>
   )
