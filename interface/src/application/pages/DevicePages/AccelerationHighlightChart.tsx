@@ -9,6 +9,7 @@ import {
   RealTimeSlicingDomain,
   BlankingLineChart,
   TriggerDomain,
+  VerticalAnnotation,
 } from '@electricui/components-desktop-charts'
 import { Event } from '@electricui/timeseries'
 
@@ -30,22 +31,29 @@ const layoutDescription = `
 const accDS = new MessageDataSource('acc')
 
 let triggerMax: number = 0
+const triggerMaxDecay: number = 0.1
+const triggerThreshold: number = 5
+
 let lastTrigger: number = 0
 
 // Datasource which emits true when a strong acceleration occured
-// TODO: debounce timing
-// TODO: peak detection to decide if event is interesting, instead of threshold
 const triggerDS = new MessageDataSource('acc', (message, emit) => {
-  // Debounce - only consider an event if we haven't recently
-  if (message.metadata.timestamp - lastTrigger > 5000) {
-    // Adaptive peak detection - only consider peaks larger
-    if (message.payload[0] > 6 || message.payload[0] > triggerMax) {
-      triggerMax = message.payload[0]
+  // Debounce - only consider an event if we haven't recently done so
+  if (message.metadata.timestamp - lastTrigger > 3000) {
+    // Adaptive thresholding - only consider magnitudes larger than a previous max
+    if (Math.abs(message.payload[0]) > triggerMax) {
+      // Set the new maximum slightly higher than this one
+      triggerMax = Math.abs(message.payload[0]) + triggerMaxDecay
       lastTrigger = message.metadata.timestamp
 
       // Generate the trigger event
-      const event = new Event(message.metadata.timestamp + 5000, 1)
+      const event = new Event(message.metadata.timestamp + 700, 1)
       emit(event)
+    } else {
+      // it's been several seconds since an event, reduce the threshold
+      if (triggerMax > triggerThreshold) {
+        triggerMax -= triggerMaxDecay
+      }
     }
   }
 })
@@ -67,24 +75,41 @@ export const AccelerationHighlightChart = () => {
                 <LineChart
                   dataSource={accDS}
                   accessor={event => event[0]}
-                  color={Colors.GREEN4}
+                  color={Colors.GREEN5}
+                  lineWidth={2}
                 />
                 <LineChart
                   dataSource={accDS}
                   accessor={event => event[1]}
-                  color={Colors.BLUE4}
+                  color={Colors.BLUE1}
+                  lineWidth={1}
                 />
                 <LineChart
                   dataSource={accDS}
                   accessor={event => event[2]}
-                  color={Colors.RED4}
+                  color={Colors.RED1}
+                  lineWidth={1}
                 />
-                <TimeAxis />
-                <VerticalAxis label="Acceleration m/s²" />
+
+                <VerticalAnnotation
+                  dataSource={triggerDS}
+                  accessor={(event, time) => time - 700}
+                  color={Colors.LIGHT_GRAY4}
+                  lineWidth={1}
+                />
+
+                <HorizontalAxis
+                  tickFormat={(tick: number, index: number, ticks: number[]) =>
+                    `${tick / 1000}s`
+                  }
+                />
+                <VerticalAxis label="Acceleration m/s²" tickCount={10} />
                 <TriggerDomain
-                  window={10000}
+                  window={1000}
                   dataSource={triggerDS}
                   accessor={(event, time) => time}
+                  yMin={-20}
+                  yMax={20}
                 />
               </ChartContainer>
             </Areas.Chart>

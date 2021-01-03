@@ -141,8 +141,8 @@ export const RateOfTurnChart = () => {
                   accessor={event => event[2] * (180 / Math.PI)}
                   color={Colors.RED4}
                 />
-                <HorizontalAnnotation y={450} />
-                <HorizontalAnnotation y={-450} />
+                <HorizontalAnnotation y={450} color={Colors.VIOLET2} />
+                <HorizontalAnnotation y={-450} color={Colors.VIOLET2} />
 
                 <RealTimeDomain window={10000} />
                 <TimeAxis />
