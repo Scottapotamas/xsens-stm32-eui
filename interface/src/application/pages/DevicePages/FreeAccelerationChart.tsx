@@ -97,8 +97,7 @@ export const FreeAccelerationChart = () => {
             </Areas.Legend>
 
             <Areas.Chart>
-              <ChartContainer>
-                {/* height="12vh" */}
+              <ChartContainer height="30vh">
                 <LineChart
                   dataSource={freeAccelerationDS}
                   accessor={event => event[0]}
@@ -117,7 +116,7 @@ export const FreeAccelerationChart = () => {
                 <RealTimeDomain window={10000} />
                 <TimeAxis />
                 <VerticalAxis
-                  label="Local Acceleration (m/s²)"
+                  label="Free-Space Acceleration m/s²"
                   labelPadding={20}
                 />
               </ChartContainer>

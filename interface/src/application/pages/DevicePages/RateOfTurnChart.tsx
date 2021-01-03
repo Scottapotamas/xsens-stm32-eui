@@ -125,29 +125,28 @@ export const RateOfTurnChart = () => {
             </Areas.Legend>
 
             <Areas.Chart>
-              <ChartContainer>
-                {/* height="12vh" */}
+              <ChartContainer height="30vh">
                 <LineChart
                   dataSource={rateOfTurnDS}
-                  accessor={event => event[0]}
+                  accessor={event => event[0] * (180 / Math.PI)}
                   color={Colors.GREEN4}
                 />
                 <LineChart
                   dataSource={rateOfTurnDS}
-                  accessor={event => event[1]}
+                  accessor={event => event[1] * (180 / Math.PI)}
                   color={Colors.BLUE4}
                 />
                 <LineChart
                   dataSource={rateOfTurnDS}
-                  accessor={event => event[2]}
+                  accessor={event => event[2] * (180 / Math.PI)}
                   color={Colors.RED4}
                 />
-                <HorizontalAnnotation y={4.5} />
-                <HorizontalAnnotation y={-4.5} />
+                <HorizontalAnnotation y={450} />
+                <HorizontalAnnotation y={-450} />
 
                 <RealTimeDomain window={10000} />
                 <TimeAxis />
-                <VerticalAxis />
+                <VerticalAxis label="deg/second" />
               </ChartContainer>
             </Areas.Chart>
           </React.Fragment>

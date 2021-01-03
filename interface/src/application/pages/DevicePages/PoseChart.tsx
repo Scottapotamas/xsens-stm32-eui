@@ -120,8 +120,7 @@ export const PoseChart = () => {
             </Areas.Legend>
 
             <Areas.Chart>
-              <ChartContainer>
-                {/* height="12vh" */}
+              <ChartContainer height="30vh">
                 <LineChart
                   dataSource={poseDS}
                   accessor={event => event.pitch}
@@ -139,7 +138,7 @@ export const PoseChart = () => {
                 />
                 <RealTimeDomain window={10000} />
                 <TimeAxis />
-                <VerticalAxis />
+                <VerticalAxis label="Angle °" />
               </ChartContainer>
             </Areas.Chart>
           </React.Fragment>

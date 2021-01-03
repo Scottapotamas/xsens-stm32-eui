@@ -113,8 +113,7 @@ export const AccelerationChart = () => {
             </Areas.Legend>
 
             <Areas.Chart>
-              <ChartContainer height="300px">
-                {/* height="12vh" */}
+              <ChartContainer height="25vh">
                 <TimeSlicedLineChart
                   dataSource={accDS}
                   xAccessor={event => event[1]}
@@ -130,8 +129,8 @@ export const AccelerationChart = () => {
                   yMax={15}
                 />
                 <Fog color="#191b1d" />
-                <HorizontalAxis label="Latitudinal (m/s²)" />
-                <VerticalAxis label="Longitudinal (m/s²)" />
+                <HorizontalAxis label="Latitudinal m/s²" />
+                <VerticalAxis label="Longitudinal m/s²" />
               </ChartContainer>
             </Areas.Chart>
           </React.Fragment>

@@ -15,6 +15,7 @@ import { FreeAccelerationChart } from './FreeAccelerationChart'
 import { RateOfTurnChart } from './RateOfTurnChart'
 import { MagnetometerChart } from './MagnetometerChart'
 import { IMUPose3D } from './IMUPose3D'
+import { AccelerationHighlightChart } from './AccelerationHighlightChart'
 
 import { Card } from '@blueprintjs/core'
 import { Composition } from 'atomic-layout'
@@ -72,7 +73,7 @@ export const DevicePages = (
                   <AccelerationChart />
                 </Areas.GForce>
                 <Areas.Review>
-                  Blanking linechart for notable acceleration events
+                  <AccelerationHighlightChart />
                 </Areas.Review>
                 <Areas.Rotation>
                   <RateOfTurnChart />
