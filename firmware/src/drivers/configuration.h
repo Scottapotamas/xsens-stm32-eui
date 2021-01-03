@@ -73,7 +73,10 @@ config_set_temp_cpu( float temp );
 /* -------------------------------------------------------------------------- */
 
 PUBLIC void
-config_update_pose( float p, float r, float y );
+config_update_quaternion( float q0, float q1, float q2, float q3 );
+
+PUBLIC void
+config_update_pry( float p, float r, float y );
 
 PUBLIC void
 config_update_acceleration( float x, float y, float z );

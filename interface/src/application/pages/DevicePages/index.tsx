@@ -22,13 +22,10 @@ export const DevicePages = (
     <React.Fragment>
       <DisconnectionModal
         intent={Intent.WARNING}
-        icon="satellite"
+        icon="issue"
         navigateToConnectionsScreen={() => navigate('/')}
       >
-        <p>
-          Connection has been lost with your device. If we successfully
-          reconnect this dialog will be dismissed.
-        </p>
+        <p>Connection has been lost with the host microcontroller!</p>
       </DisconnectionModal>
 
       <div className="device-pages">

@@ -277,15 +277,17 @@ PRIVATE void AppTaskCommunication_imu_callback_event( EventFlag_t event, EventDa
         case XSENS_EVT_QUATERNION:
             if( mtdata->type == XSENS_EVT_TYPE_FLOAT4 )
             {
-                float pry[3] = { 0 };
-                convert_quaternion_to_euler( mtdata->data.f4x4, pry );
+                config_update_quaternion( mtdata->data.f4x4[0], mtdata->data.f4x4[1], mtdata->data.f4x4[2], mtdata->data.f4x4[3] );
 
-                // Convert from radians to degrees
-                pry[0] *= (180.0 / 3.14159265358979323846);
-                pry[1] *= (180.0 / 3.14159265358979323846);
-                pry[2] *= (180.0 / 3.14159265358979323846);
+//                float pry[3] = { 0 };
+//                convert_quaternion_to_euler( mtdata->data.f4x4, pry );
+//
+//                // Convert from radians to degrees
+//                pry[0] *= (180.0 / 3.14159265358979323846);
+//                pry[1] *= (180.0 / 3.14159265358979323846);
+//                pry[2] *= (180.0 / 3.14159265358979323846);
 
-                config_update_pose( pry[1], pry[0], pry[2] );
+//                config_update_pry( pry[1], pry[0], pry[2] );
             }
             break;
 

@@ -26,82 +26,15 @@ export const Header = (
   const page = props['*'] // we get passed the path as the wildcard, so we read it here
 
   return (
-    <div className="device-header">
-      <Navbar style={{ background: 'transparent', boxShadow: 'none' }}>
-        <div style={{ margin: '0 auto', width: '100%' }}>
-          <Navbar.Group align={Alignment.LEFT}>
-            <Button
-              minimal
-              large
-              icon="home"
-              text="Back"
-              onClick={() => {
-                navigate('/')
-              }}
-            />
-
-            {connectionRequested ? (
-              <Button
-                minimal
-                intent="danger"
-                icon="cross"
-                text="Disconnect"
-                onClick={() => {
-                  const cancellationToken = getDeadline()
-                  
-                  disconnect(cancellationToken).catch(err => {
-                    if (cancellationToken.caused(err)) {
-                      return
-                    }
-
-                    console.warn("Failed to connect", err)
-                  })
-                }}
-              />
-            ) : (
-              <Button
-                minimal
-                icon="link"
-                intent="success"
-                text="Connect again"
-                onClick={() => {
-                  const cancellationToken = getDeadline()
-
-                  connect(cancellationToken).catch(err => {
-                    if (cancellationToken.caused(err)) {
-                      return
-                    }
-                    
-                    console.warn("Failed to connect", err)
-                  })
-                }}
-              />
-            )}
-          </Navbar.Group>{' '}
-          <Navbar.Group align={Alignment.RIGHT}>
-            <Button
-              minimal
-              large
-              icon="dashboard"
-              text="Overview"
-              onClick={() => {
-                navigate(`/devices/${props.deviceID}/`)
-              }}
-              active={page === ''}
-            />
-            <Button
-              minimal
-              large
-              icon="settings"
-              text="Secondary"
-              onClick={() => {
-                navigate(`/devices/${props.deviceID}/secondary`)
-              }}
-              active={page === 'secondary'}
-            />
-          </Navbar.Group>{' '}
-        </div>
-      </Navbar>
+    <div>
+      <Button
+        minimal
+        large
+        icon="drawer-right"
+        onClick={() => {
+          navigate('/')
+        }}
+      />{' '}
     </div>
   )
 }

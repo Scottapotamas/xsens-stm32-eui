@@ -1480,9 +1480,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@electricui/components-core@npm:^0.8.2":
-  version: 0.8.2
-  resolution: "@electricui/components-core@npm:0.8.2"
+"@electricui/components-core@npm:^0.8.5-prerelease.0":
+  version: 0.8.5-prerelease.0
+  resolution: "@electricui/components-core@npm:0.8.5-prerelease.0"
   dependencies:
     "@electricui/core": ^0.8.2
     "@electricui/core-redux-state": ^0.8.2
@@ -1497,21 +1497,21 @@ __metadata:
     react-dom: 17.0.1
     react-redux: "*"
     redux: "*"
-  checksum: ddaf16789ff5cfc6c6af3a5ed1e758c94b70799cbb79c3512944745504cd53d127f099ec1afe8c34ebf39ef801d8f6f8b91978ebaa066aeee3c9dd9ef7e74e93
+  checksum: af61e658138a2c1a39b222248036dac18376fe24300d8a509920d9d99a682c900460915813549ed81783d624beeb9115ba2a1f3999de609f4f6536015d3f0387
   languageName: node
   linkType: hard
 
-"@electricui/components-desktop-blueprint-loggers@npm:^0.8.2":
-  version: 0.8.2
-  resolution: "@electricui/components-desktop-blueprint-loggers@npm:0.8.2"
+"@electricui/components-desktop-blueprint-loggers@npm:^0.8.5-prerelease.0":
+  version: 0.8.5-prerelease.0
+  resolution: "@electricui/components-desktop-blueprint-loggers@npm:0.8.5-prerelease.0"
   dependencies:
     "@blueprintjs/core": ^3.36.0
     "@blueprintjs/icons": ^3.23.0
-    "@electricui/components-core": ^0.8.2
-    "@electricui/components-desktop": ^0.8.2
-    "@electricui/components-desktop-charts": ^0.8.2
+    "@electricui/components-core": ^0.8.5-prerelease.0
+    "@electricui/components-desktop": ^0.8.5-prerelease.0
+    "@electricui/components-desktop-charts": ^0.8.5-prerelease.0
     "@electricui/core": ^0.8.2
-    "@electricui/core-timeseries": ^0.8.2
+    "@electricui/core-timeseries": ^0.8.5-prerelease.0
     "@electricui/utility-electron": ^0.8.0
     atomic-layout: ^0.13.0
     classnames: ^2.2.6
@@ -1526,21 +1526,21 @@ __metadata:
     react-redux: "*"
     redux: "*"
     styled-components: ">=4.0.0"
-  checksum: 415c7217a342f71e8d357ffe7831fd58b2c917da386d7841b40a55c6223c6860d2c662154724311ae02518cdfabbbf52cf3fc915a9457fa2814d6a660101868e
+  checksum: 7b116859214ed632133a5bdb9da8a01206970409055ac7da68b367ac8d6bea7c1f362329c6b1266ca966741fed96d5cf67cbaaaad1b4fc9147e856b81dd0530a
   languageName: node
   linkType: hard
 
-"@electricui/components-desktop-blueprint@npm:^0.8.2":
-  version: 0.8.2
-  resolution: "@electricui/components-desktop-blueprint@npm:0.8.2"
+"@electricui/components-desktop-blueprint@npm:^0.8.5-prerelease.0":
+  version: 0.8.5-prerelease.0
+  resolution: "@electricui/components-desktop-blueprint@npm:0.8.5-prerelease.0"
   dependencies:
     "@blueprintjs/core": ^3.36.0
     "@blueprintjs/icons": ^3.23.0
     "@blueprintjs/select": ^3.15.0
-    "@electricui/components-core": ^0.8.2
-    "@electricui/components-desktop": ^0.8.2
+    "@electricui/components-core": ^0.8.5-prerelease.0
+    "@electricui/components-desktop": ^0.8.5-prerelease.0
     "@electricui/core": ^0.8.2
-    "@electricui/core-timeseries": ^0.8.2
+    "@electricui/core-timeseries": ^0.8.5-prerelease.0
     atomic-layout: ^0.13.0
     classnames: ^2.2.6
     debug: ^4.3.1
@@ -1556,20 +1556,20 @@ __metadata:
     react-redux: "*"
     redux: "*"
     styled-components: ">=4.0.0"
-  checksum: e62bc6fc0e89108b77f926b1e881ff38641d4794c1fe0db80922ce8050768bf56bb9c931e59b39f1fa7adc884ceeb883ce4190d4bf05b49f2e6d9af650febd41
+  checksum: c086cfc1ed954cb63fbbc4bb9f56bd60e4c43f7292785251534a569993a2f36bbcb55ca5d1548b85f7f464b504170860d9aa7865a194990b934d30f7a167e122
   languageName: node
   linkType: hard
 
-"@electricui/components-desktop-charts@npm:^0.8.2":
-  version: 0.8.2
-  resolution: "@electricui/components-desktop-charts@npm:0.8.2"
+"@electricui/components-desktop-charts@npm:^0.8.5-prerelease.0":
+  version: 0.8.5-prerelease.0
+  resolution: "@electricui/components-desktop-charts@npm:0.8.5-prerelease.0"
   dependencies:
     "@electricui/charts": ^0.8.2
-    "@electricui/components-core": ^0.8.2
-    "@electricui/components-desktop": ^0.8.2
+    "@electricui/components-core": ^0.8.5-prerelease.0
+    "@electricui/components-desktop": ^0.8.5-prerelease.0
     "@electricui/core": ^0.8.2
     "@electricui/core-redux-state": ^0.8.2
-    "@electricui/core-timeseries": ^0.8.2
+    "@electricui/core-timeseries": ^0.8.5-prerelease.0
     "@electricui/timeseries": ^0.8.1
     csv-writer: ^1.5.0
     date-fns: ^2.16.1
@@ -1584,17 +1584,17 @@ __metadata:
     react-redux: "*"
     redux: "*"
     styled-components: ">=4.0.0"
-  checksum: 59a635ab772200b964de375620deb48d07abb457dd1e448da9a4ad16b8148700247c9b89ec7fbd3d43899525e639006f1cdf37751cb379aad4422cce393e7e28
+  checksum: 816eb9827204aa75a4a96c4b51c802946643b4d640fbb6b20820dcbcc2838fc7152a795c2ed0c8bf4aac39b98d89a5bfffb07297902d57a0ddbf856fd345fd18
   languageName: node
   linkType: hard
 
-"@electricui/components-desktop-three@npm:^0.8.3":
-  version: 0.8.3
-  resolution: "@electricui/components-desktop-three@npm:0.8.3"
+"@electricui/components-desktop-three@npm:^0.8.5-prerelease.0":
+  version: 0.8.5-prerelease.0
+  resolution: "@electricui/components-desktop-three@npm:0.8.5-prerelease.0"
   dependencies:
     "@electricui/charts": ^0.8.2
-    "@electricui/components-core": ^0.8.2
-    "@electricui/components-desktop-charts": ^0.8.2
+    "@electricui/components-core": ^0.8.5-prerelease.0
+    "@electricui/components-desktop-charts": ^0.8.5-prerelease.0
     "@react-three/drei": ^2.2.13
     react-three-fiber: ^5.0.0
     three: 0.123.0
@@ -1605,15 +1605,15 @@ __metadata:
     react-redux: "*"
     redux: "*"
     styled-components: ">=4.0.0"
-  checksum: 2388b1a7190411671b25a8bcdb10ab8685480a7b36a24f6998c8f11e231b4c9a08faa889404e5d2196992cef19e8bf1ca8e073c26f3ea6c37baf6b9402e738dd
+  checksum: be148ab80ff049ae31a2e77c2d5b8abf750d666061dece37eabfeac554cb592a6e8ebd8980c5b03fcb0112469dc5b8727fa117e93cde78cd357566d62e3491da
   languageName: node
   linkType: hard
 
-"@electricui/components-desktop@npm:^0.8.2":
-  version: 0.8.2
-  resolution: "@electricui/components-desktop@npm:0.8.2"
+"@electricui/components-desktop@npm:^0.8.5-prerelease.0":
+  version: 0.8.5-prerelease.0
+  resolution: "@electricui/components-desktop@npm:0.8.5-prerelease.0"
   dependencies:
-    "@electricui/components-core": ^0.8.2
+    "@electricui/components-core": ^0.8.5-prerelease.0
     "@electricui/core": ^0.8.2
     "@electricui/utility-electron": ^0.8.0
     atomic-layout: ^0.13.0
@@ -1629,7 +1629,7 @@ __metadata:
     react-redux: "*"
     redux: "*"
     styled-components: ">=4.0.0"
-  checksum: 112ff2164a4b6dc7898adb8498026f54a7ef61ea67ba9863f9e17576a898721d0d49964fae7fdfa2389588137e90dfc684ef78c6783a29ffa1c32239742101d3
+  checksum: 4a439827120889c7b0a224d196e58469a6e4bc95242d96a6091733f4c8dc0c8a044b4e8671033587e18467caaed50c24098da767bb8eb5ff10b1ca4637e29b7f
   languageName: node
   linkType: hard
 
@@ -1649,11 +1649,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@electricui/core-timeseries@npm:^0.8.2":
-  version: 0.8.2
-  resolution: "@electricui/core-timeseries@npm:0.8.2"
+"@electricui/core-timeseries@npm:^0.8.5-prerelease.0":
+  version: 0.8.5-prerelease.0
+  resolution: "@electricui/core-timeseries@npm:0.8.5-prerelease.0"
   dependencies:
-    "@electricui/components-core": ^0.8.2
+    "@electricui/components-core": ^0.8.5-prerelease.0
     "@electricui/core": ^0.8.2
     "@electricui/timeseries": ^0.8.1
   peerDependencies:
@@ -1662,7 +1662,7 @@ __metadata:
     react-dom: 17.0.1
     react-redux: "*"
     redux: "*"
-  checksum: cafebeaeefef5ef7f4cf37c5dd2bd60f7134c6e12e61d788761d72e309f67d8b6fc78fc4288c6c365eed1960e7de3dd6703ff571d7d5902ec044c442bfe81090
+  checksum: 96f173d55a4cffbe6aed385b89b3a31026009ca604d6b1b422d551dd9d4292a0fe3654910a178d5680d5f308fbb9ea315998597a0325cad6986c604f2bae346f
   languageName: node
   linkType: hard
 
@@ -2214,7 +2214,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-three/drei@npm:^2.2.10, @react-three/drei@npm:^2.2.13":
+"@react-three/drei@npm:^2.2.10, @react-three/drei@npm:^2.2.12, @react-three/drei@npm:^2.2.13":
   version: 2.2.13
   resolution: "@react-three/drei@npm:2.2.13"
   dependencies:
@@ -11987,7 +11987,7 @@ fsevents@~2.1.1:
   languageName: node
   linkType: hard
 
-"react-three-fiber@npm:*, react-three-fiber@npm:^5.0.0, react-three-fiber@npm:^5.3.3":
+"react-three-fiber@npm:*, react-three-fiber@npm:^5.0.0, react-three-fiber@npm:^5.3.10, react-three-fiber@npm:^5.3.3":
   version: 5.3.10
   resolution: "react-three-fiber@npm:5.3.10"
   dependencies:
@@ -14768,6 +14768,17 @@ typescript@^3.7.2:
   languageName: node
   linkType: hard
 
+"use-asset@npm:*":
+  version: 0.2.0
+  resolution: "use-asset@npm:0.2.0"
+  dependencies:
+    fast-deep-equal: ^3.1.3
+  peerDependencies:
+    react: ">=16.13"
+  checksum: 2c46d81a8f404b7c99f5a5ee69b5c4d7ab59bd772b45850ee2f041b8256e17b8ad23cf52360d500cfe5c05c87d29dd81840e67e4df5c271cd4902b1610bb3958
+  languageName: node
+  linkType: hard
+
 "use-asset@npm:^0.1.5":
   version: 0.1.5
   resolution: "use-asset@npm:0.1.5"
@@ -15750,15 +15761,15 @@ typescript@^3.7.2:
     "@blueprintjs/select": ^3.15.0
     "@electricui/build-tools": ^0.8.0
     "@electricui/charts": ^0.8.2
-    "@electricui/components-core": ^0.8.2
-    "@electricui/components-desktop": ^0.8.2
-    "@electricui/components-desktop-blueprint": ^0.8.2
-    "@electricui/components-desktop-blueprint-loggers": ^0.8.2
-    "@electricui/components-desktop-charts": ^0.8.2
-    "@electricui/components-desktop-three": ^0.8.3
+    "@electricui/components-core": ^0.8.5-prerelease.0
+    "@electricui/components-desktop": ^0.8.5-prerelease.0
+    "@electricui/components-desktop-blueprint": ^0.8.5-prerelease.0
+    "@electricui/components-desktop-blueprint-loggers": ^0.8.5-prerelease.0
+    "@electricui/components-desktop-charts": ^0.8.5-prerelease.0
+    "@electricui/components-desktop-three": ^0.8.5-prerelease.0
     "@electricui/core": ^0.8.2
     "@electricui/core-redux-state": ^0.8.2
-    "@electricui/core-timeseries": ^0.8.2
+    "@electricui/core-timeseries": ^0.8.5-prerelease.0
     "@electricui/helpers": ^0.8.0
     "@electricui/loader": ^0.8.0
     "@electricui/node-usb": ^0.7.34
@@ -15780,7 +15791,7 @@ typescript@^3.7.2:
     "@electricui/utility-electron": ^0.8.0
     "@electricui/utility-ipc": ^0.8.0
     "@reach/router": ^1.2.1
-    "@react-three/drei": ^2.2.13
+    "@react-three/drei": ^2.2.12
     "@types/chai": ^4.1.7
     "@types/classnames": ^2.2.8
     "@types/js-quantities": ^1.6.2
@@ -15834,6 +15845,7 @@ typescript@^3.7.2:
     react-pose: ^4.0.10
     react-pretty-numbers: ^3.0.0
     react-redux: ^7.2.0
+    react-three-fiber: ^5.3.10
     read-config-file: ^3.1.2
     redux: 4.0.4
     redux-devtools-extension: ^2.13.8
@@ -15848,6 +15860,7 @@ typescript@^3.7.2:
     spectron: ^9.0.0
     style-loader: ^0.23.1
     styled-components: ^4.4.1
+    three: 0.123.0
     ts-loader: ^6.2.1
     ts-node: ^9.0.0
     typesafe-actions: ^4.4.2

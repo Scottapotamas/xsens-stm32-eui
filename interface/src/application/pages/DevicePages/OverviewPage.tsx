@@ -13,30 +13,20 @@ import { RateOfTurnChart } from './RateOfTurnChart'
 import { MagnetometerChart } from './MagnetometerChart'
 import { PressureChart } from './PressureChart'
 import { TemperatureChart } from './TemperatureChart'
+import { IMUPose3D } from './IMUPose3D'
 
-import {
-  Environment,
-  ControlledGroup,
-  GLTF,
-  OrbitControls,
-} from '@electricui/components-desktop-three'
-
-import IMUModel from '../../components/xsens-mti300/xsens-mti300.glb'
 import { IntervalRequester } from '@electricui/components-core'
-
-// GLTF.preload(IMUModel)
 
 const layoutDescription = `
         Control GForce Model
-        Status Rotation FreeAccel
+        Status FreeAccel Rotation
         Pose Pose Pose
       `
 
 export const OverviewPage = (props: RouteComponentProps) => {
   return (
     <React.Fragment>
-      <IntervalRequester variable="sys" interval={250} />
-      <Composition areas={layoutDescription} gap={10} autoCols="1fr">
+      <Composition areas={layoutDescription} gap={10} autoCols="auto 1fr 1fr">
         {Areas => (
           <React.Fragment>
             <Areas.Control>
@@ -51,19 +41,7 @@ export const OverviewPage = (props: RouteComponentProps) => {
             </Areas.Status>
 
             <Areas.Model>
-              3D Model of IMU goes here
-              {/* <Environment>
-            <OrbitControls />
-            <ControlledGroup
-              position={[30, 1.75, 0]}
-              rotationAccessor={state => {
-                return [state.pose[0], state.pose[1], state.pose[2]]
-              }}
-            >
-              <GLTF asset={IMUModel} />
-            </ControlledGroup>
-            <ambientLight intensity={0.95} />
-          </Environment> */}
+              <IMUPose3D />
             </Areas.Model>
             <Areas.GForce>
               <AccelerationChart />

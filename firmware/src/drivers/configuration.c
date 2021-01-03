@@ -56,6 +56,7 @@ uint32_t sensor_status = { 0 };
 
 // IMU data
 float pry[3] = { 0 };
+float quaternion[4] = { 0 };
 float acceleration[3] = { 0 };
 float free_acceleration[3] = { 0 };
 float rate_of_turn[3] = { 0 };
@@ -71,6 +72,7 @@ eui_message_t ui_variables[] = {
     EUI_CUSTOM( "fwb", fw_info ),
     EUI_CUSTOM( "tasks", task_info ),
 
+    EUI_FLOAT_ARRAY_RO( "quat", quaternion ),
     EUI_FLOAT_ARRAY_RO( "pose", pry ),
     EUI_FLOAT_ARRAY_RO( "acc", acceleration ),
     EUI_FLOAT_ARRAY_RO( "fracc", free_acceleration ),
@@ -228,8 +230,21 @@ config_set_temp_cpu( float temp )
 
 /* -------------------------------------------------------------------------- */
 
+
+
 PUBLIC void
-config_update_pose( float p, float r, float y )
+config_update_quaternion( float q0, float q1, float q2, float q3 )
+{
+    quaternion[0] = q0;
+    quaternion[1] = q1;
+    quaternion[2] = q2;
+    quaternion[3] = q3;
+
+    eui_send_tracked( "quat" );
+}
+
+PUBLIC void
+config_update_pry( float p, float r, float y )
 {
     pry[0] = p;
     pry[1] = r;
