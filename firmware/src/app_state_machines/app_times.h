@@ -36,7 +36,7 @@ enum SystemDefines
 enum CommunicationDefines
 {
     PC_BAUD = 500000,
-    INTERNAL_BAUD = 115200,
+    IMU_BAUD      = 921600,
     EXTERNAL_BAUD = 115200,
 };
 
