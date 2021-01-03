@@ -117,8 +117,8 @@ export const AccelerationChart = () => {
                 {/* height="12vh" */}
                 <TimeSlicedLineChart
                   dataSource={accDS}
-                  xAccessor={event => event[0]}
-                  yAccessor={event => event[1]}
+                  xAccessor={event => event[1]}
+                  yAccessor={event => event[0]}
                   color={Colors.GOLD4}
                   lineWidth={4}
                 />
