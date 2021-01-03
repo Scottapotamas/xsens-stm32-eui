@@ -89,7 +89,7 @@ export const ClippingStatus = () => {
                 intent={filter_ok ? Intent.WARNING : Intent.SUCCESS}
                 rightIcon={filter_ok ? IconNames.CROSS : IconNames.TICK}
               >
-                <div style={{ textAlign: 'center' }}>Motion Fusion</div>
+                <div style={{ textAlign: 'center' }}>Motion Estimation</div>
               </Tag>
             </Areas.Filter>
             <Areas.Accel>
@@ -211,7 +211,7 @@ const TemperaturePressure = () => {
           </Box>
           <Box>Pressure</Box>
           <Box>
-            <Printer accessor={state => state.baro / 100} precision={1} /> hpa
+            <Printer accessor={state => state.baro / 100} precision={1} /> hPa
           </Box>
         </Composition>
       </Callout>
@@ -240,9 +240,7 @@ export const ControlBlock = () => {
       <IntervalRequester variable="sys" interval={250} />
 
       <Composition gap={10} autoCols="1fr">
-        <h3>IMU Info</h3>
         <CPUStatus />
-        <br />
         <TemperaturePressure />
         <br />
         <Card>

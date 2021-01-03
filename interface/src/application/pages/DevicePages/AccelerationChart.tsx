@@ -130,27 +130,8 @@ export const AccelerationChart = () => {
                   yMax={15}
                 />
                 <Fog color="#191b1d" />
-                {/* 
-                <LineChart
-                  dataSource={accDS}
-                  accessor={event => event[0]}
-                  color={Colors.GREEN4}
-                />
-                <LineChart
-                  dataSource={accDS}
-                  accessor={event => event[1]}
-                  color={Colors.BLUE4}
-                />
-                <LineChart
-                  dataSource={accDS}
-                  accessor={event => event[2]}
-                  color={Colors.RED4}
-                />
-                <RealTimeDomain window={10000} />
-                 */}
-                {/* <TimeAxis /> */}
-                <HorizontalAxis />
-                <VerticalAxis />
+                <HorizontalAxis label="Latitudinal (m/s²)" />
+                <VerticalAxis label="Longitudinal (m/s²)" />
               </ChartContainer>
             </Areas.Chart>
           </React.Fragment>

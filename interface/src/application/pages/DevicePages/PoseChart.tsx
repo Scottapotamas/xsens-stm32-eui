@@ -77,9 +77,9 @@ const poseDS = new MessageDataSource('quat', (message, emit) => {
   const euler: number[] = convert_quaternion_to_euler(message.payload)
 
   const event = new Event(message.metadata.timestamp, {
-    pitch: euler[0],
-    roll: euler[1],
-    yaw: euler[2],
+    pitch: euler[0] * (180 / Math.PI),
+    roll: euler[1] * (180 / Math.PI),
+    yaw: euler[2] * (180 / Math.PI),
   })
 
   // Emit the event

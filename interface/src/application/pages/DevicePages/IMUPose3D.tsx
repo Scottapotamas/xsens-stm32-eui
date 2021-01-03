@@ -49,8 +49,9 @@ export const IMUPose3D = () => {
             >
               <GLTF asset={IMUModel} />
             </ControlledGroup>
-            {/* <ambientLight intensity={0.1} /> */}
-            <hemisphereLight intensity={0.7} />
+            <ambientLight intensity={0.1} />
+            <hemisphereLight intensity={0.3} />
+            <directionalLight intensity={1.0} />
           </Environment>
         </div>
       </React.Fragment>
