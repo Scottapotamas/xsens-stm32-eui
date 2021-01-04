@@ -34,57 +34,14 @@ import {
 import { Printer } from '@electricui/components-desktop'
 import { IconNames } from '@blueprintjs/icons'
 
+import { PoseConverted } from '../../typedState'
+
 const layoutDescription = `
         Title Legend
         Chart Chart
       `
 
-// const poseDS = new MessageDataSource('pose')
-
-function convert_quaternion_to_euler(quat: number[]): number[] {
-  let euler: number[] = [0, 0, 0]
-
-  const w: number = quat[0]
-  const x: number = quat[1]
-  const y: number = quat[2]
-  const z: number = quat[3]
-
-  const sinr_cosp: number = 2 * (w * x + y * z)
-  const cosr_cosp: number = 1 - 2 * (x * x + y * y)
-
-  // Roll
-  euler[0] = Math.atan2(sinr_cosp, cosr_cosp)
-
-  // Pitch: y-axis
-  const sinp: number = 2 * (w * y - z * x)
-
-  if (Math.abs(sinp) >= 1) {
-    euler[1] = (Math.PI / 2) * Math.sign(sinp) // use 90 degrees if out of range
-  } else {
-    euler[1] = Math.asin(sinp)
-  }
-
-  // Yaw: z-axis
-  const siny_cosp: number = 2 * (w * z + x * y)
-  const cosy_cosp: number = 1 - 2 * (y * y + z * z)
-  euler[2] = Math.atan2(siny_cosp, cosy_cosp)
-
-  return euler
-}
-
-// Datasource which converts from a quaternion to euler angles
-const poseDS = new MessageDataSource('quat', (message, emit) => {
-  const euler: number[] = convert_quaternion_to_euler(message.payload)
-
-  const event = new Event(message.metadata.timestamp, {
-    pitch: euler[0] * (180 / Math.PI),
-    roll: euler[1] * (180 / Math.PI),
-    yaw: euler[2] * (180 / Math.PI),
-  })
-
-  // Emit the event
-  emit(event)
-})
+const poseDS = new MessageDataSource('quat')
 
 export const PoseChart = () => {
   return (
@@ -106,15 +63,18 @@ export const PoseChart = () => {
               >
                 <Tag intent={Intent.SUCCESS} minimal fill>
                   <b>Pitch:</b>{' '}
-                  <Printer accessor={state => state.pose[0]} precision={2} />
+                  <Printer accessor={state => state.quat.pitch} precision={2} />
                 </Tag>
                 <Tag intent={Intent.PRIMARY} minimal fill>
                   <b>Roll:</b>{' '}
-                  <Printer accessor={state => state.pose[1]} precision={2} />
+                  <Printer accessor={state => state.quat.roll} precision={2} />
                 </Tag>
                 <Tag intent={Intent.DANGER} minimal fill>
                   <b>Yaw:</b>{' '}
-                  <Printer accessor={state => state.pose[2]} precision={2} />
+                  <Printer
+                    accessor={state => state.quat.heading}
+                    precision={2}
+                  />
                 </Tag>
               </Composition>
             </Areas.Legend>
@@ -133,7 +93,7 @@ export const PoseChart = () => {
                 />
                 <LineChart
                   dataSource={poseDS}
-                  accessor={event => event.yaw}
+                  accessor={event => event.heading}
                   color={Colors.RED4}
                 />
                 <RealTimeDomain window={10000} />

@@ -62,5 +62,15 @@ export type IMUStatus = {
   clip_mag_z: boolean
 }
 
+export type PoseConverted = {
+  q0: number
+  q1: number
+  q2: number
+  q3: number
+  pitch: number
+  roll: number
+  heading: number
+}
+
 // This exports these types into the dependency tree.
 export {}

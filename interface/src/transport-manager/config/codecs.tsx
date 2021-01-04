@@ -5,6 +5,7 @@ import {
   TaskStatistics,
   FirmwareBuildInfo,
   IMUStatus,
+  PoseConverted,
 } from '../../application/typedState'
 import { SmartBuffer } from 'smart-buffer'
 
@@ -199,10 +200,77 @@ export class IMUStatusCodec extends Codec<IMUStatus> {
   }
 }
 
+function convert_quaternion_to_euler(quat: number[]): number[] {
+  let euler: number[] = [0, 0, 0]
+
+  const w: number = quat[0]
+  const x: number = quat[1]
+  const y: number = quat[2]
+  const z: number = quat[3]
+
+  const sinr_cosp: number = 2 * (w * x + y * z)
+  const cosr_cosp: number = 1 - 2 * (x * x + y * y)
+
+  // Roll
+  euler[0] = Math.atan2(sinr_cosp, cosr_cosp)
+
+  // Pitch: y-axis
+  const sinp: number = 2 * (w * y - z * x)
+
+  if (Math.abs(sinp) >= 1) {
+    euler[1] = (Math.PI / 2) * Math.sign(sinp) // use 90 degrees if out of range
+  } else {
+    euler[1] = Math.asin(sinp)
+  }
+
+  // Yaw: z-axis
+  const siny_cosp: number = 2 * (w * z + x * y)
+  const cosy_cosp: number = 1 - 2 * (y * y + z * z)
+  euler[2] = Math.atan2(siny_cosp, cosy_cosp)
+
+  return euler
+}
+
+export class PoseConversionCodec extends Codec {
+  filter(message: Message): boolean {
+    return message.messageID === 'quat'
+  }
+
+  encode(payload: PoseConverted): Buffer {
+    throw new Error('quat info is read-only')
+  }
+
+  decode(payload: Buffer): PoseConverted {
+    const reader = SmartBuffer.fromBuffer(payload)
+
+    const quaternion: number[] = []
+
+    quaternion[0] = reader.readFloatLE()
+    quaternion[1] = reader.readFloatLE()
+    quaternion[2] = reader.readFloatLE()
+    quaternion[3] = reader.readFloatLE()
+
+    const euler: number[] = convert_quaternion_to_euler(quaternion)
+
+    const pose: PoseConverted = {
+      q0: quaternion[0],
+      q1: quaternion[1],
+      q2: quaternion[2],
+      q3: quaternion[3],
+      pitch: euler[1] * (180 / Math.PI),
+      roll: euler[0] * (180 / Math.PI),
+      heading: euler[2] * (180 / Math.PI),
+    }
+
+    return pose
+  }
+}
+
 // Create the instances of the codecs
 export const customCodecs = [
   new SystemInfoCodec(),
   new TaskStatisticsCodec(),
   new FirmwareInfoCodec(),
   new IMUStatusCodec(),
+  new PoseConversionCodec(),
 ]

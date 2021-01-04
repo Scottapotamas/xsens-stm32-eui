@@ -69,10 +69,9 @@ const serialTransportFactory = new TransportFactory(
     )
 
     const codecPipeline = new CodecDuplexPipeline()
-    // Add the default codecs first so that queries are dealt with preferentially
-    codecPipeline.addCodecs(defaultCodecList)
-    // Add custom codecs after the default ones.
+
     codecPipeline.addCodecs(customCodecs)
+    codecPipeline.addCodecs(defaultCodecList)
 
     const largePacketPipeline = new BinaryLargePacketHandlerPipeline({
       connectionInterface,

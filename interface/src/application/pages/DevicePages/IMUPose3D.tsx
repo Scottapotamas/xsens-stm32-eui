@@ -24,37 +24,29 @@ GLTF.preload(IMUModel)
 export const IMUPose3D = () => {
   return (
     <React.Fragment>
-      <React.Fragment>
-        <div style={{ width: '100%', height: 300 }}>
-          <Environment
-            camera={{
-              fov: 50,
-              position: [0, 0, -100],
-            }}
-          >
-            {/* <OrbitControls /> */}
-            <ControlledGroup
-              position={[0, -10, 0]}
-              // positionAccessor={state => {
-              //   return [state.acc[1] / 10, state.acc[2] / 10, state.acc[0] / 10]
-              // }}
-              quaternionAccessor={state => {
-                return [
-                  state.quat[2],
-                  state.quat[3],
-                  state.quat[1],
-                  state.quat[0],
-                ]
-              }}
-            >
-              <GLTF asset={IMUModel} />
-            </ControlledGroup>
-            <ambientLight intensity={0.1} />
-            <hemisphereLight intensity={0.3} />
-            <directionalLight intensity={1.0} />
-          </Environment>
-        </div>
-      </React.Fragment>
+      <Environment
+        camera={{
+          fov: 50,
+          position: [0, 0, -85],
+        }}
+        style={{ width: '100%', height: '25vh' }}
+      >
+        {/* <OrbitControls /> */}
+        <ControlledGroup
+          position={[0, 0, 0]}
+          // positionAccessor={state => {
+          //   return [state.acc[1] / 10, state.acc[2] / 10, state.acc[0] / 10]
+          // }}
+          quaternionAccessor={state => {
+            return [state.quat.q2, state.quat.q3, state.quat.q1, state.quat.q0]
+          }}
+        >
+          <GLTF asset={IMUModel} />
+        </ControlledGroup>
+        <ambientLight intensity={0.1} />
+        <hemisphereLight intensity={0.3} />
+        <directionalLight intensity={1.0} />
+      </Environment>
     </React.Fragment>
   )
 }
