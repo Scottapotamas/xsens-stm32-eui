@@ -59,39 +59,51 @@ export const FreeAccelerationChart = () => {
               >
                 <Tag intent={Intent.SUCCESS} fill>
                   <b>X:</b>
-                  <div
+
+                  <Printer
+                    accessor={state => state.fracc[0]}
+                    precision={2}
                     style={{
-                      width: '2.75em',
+                      width: '2.2em',
+                      height: '1em',
+                      overflow: 'hidden',
+                      contain: 'strict',
                       textAlign: 'right',
                       display: 'inline-block',
                     }}
-                  >
-                    <Printer accessor={state => state.fracc[0]} precision={2} />
-                  </div>
+                  />
                 </Tag>
                 <Tag intent={Intent.PRIMARY} fill>
                   <b>Y:</b>
-                  <div
+
+                  <Printer
+                    accessor={state => state.fracc[1]}
+                    precision={2}
                     style={{
-                      width: '2.75em',
+                      width: '2.2em',
+                      height: '1em',
+                      overflow: 'hidden',
+                      contain: 'strict',
                       textAlign: 'right',
                       display: 'inline-block',
                     }}
-                  >
-                    <Printer accessor={state => state.fracc[1]} precision={2} />
-                  </div>
+                  />
                 </Tag>
                 <Tag intent={Intent.DANGER} fill>
                   <b>Z:</b>
-                  <div
+
+                  <Printer
+                    accessor={state => state.fracc[2]}
+                    precision={2}
                     style={{
-                      width: '2.75em',
+                      width: '2.2em',
+                      height: '1em',
+                      overflow: 'hidden',
+                      contain: 'strict',
                       textAlign: 'right',
                       display: 'inline-block',
                     }}
-                  >
-                    <Printer accessor={state => state.fracc[2]} precision={2} />
-                  </div>
+                  />
                 </Tag>
               </Composition>
             </Areas.Legend>

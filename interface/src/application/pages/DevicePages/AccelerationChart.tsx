@@ -58,39 +58,49 @@ const ClippingLegend = () => {
       >
         <Tag intent={Intent.SUCCESS} minimal={clip_x} fill>
           <b>X:</b>
-          <div
+          <Printer
+            accessor={state => state.acc[0]}
+            precision={1}
             style={{
-              width: '2.75em',
+              width: '2.2em',
+              height: '1em',
+              overflow: 'hidden',
+              contain: 'strict',
               textAlign: 'right',
               display: 'inline-block',
             }}
-          >
-            <Printer accessor={state => state.acc[0]} precision={1} />
-          </div>
+          />
         </Tag>
         <Tag intent={Intent.PRIMARY} minimal={clip_y} fill>
           <b>Y:</b>
-          <div
+
+          <Printer
+            accessor={state => state.acc[1]}
+            precision={1}
             style={{
-              width: '2.75em',
+              width: '2.2em',
+              height: '1em',
+              overflow: 'hidden',
+              contain: 'strict',
               textAlign: 'right',
               display: 'inline-block',
             }}
-          >
-            <Printer accessor={state => state.acc[1]} precision={1} />
-          </div>
+          />
         </Tag>
         <Tag intent={Intent.DANGER} minimal={clip_z} fill>
           <b>Z: </b>
-          <div
+          <Printer
+            accessor={state => state.acc[2]}
+            precision={1}
             style={{
-              width: '2.75em',
+              width: '2.2em',
+              height: '1em',
+              overflow: 'hidden',
+              contain: 'strict',
               textAlign: 'right',
               display: 'inline-block',
             }}
-          >
-            <Printer accessor={state => state.acc[2]} precision={1} />
-          </div>
+          />
         </Tag>
       </Composition>
     </React.Fragment>

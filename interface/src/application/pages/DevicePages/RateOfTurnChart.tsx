@@ -68,41 +68,49 @@ const ClippingLegend = () => {
         gapCol={10}
       >
         <Tag intent={Intent.SUCCESS} minimal={clip_x} fill>
-          <b>X:</b>{' '}
-          <div
+          <b>Pitch: </b>
+          <Printer
+            accessor={state => state.rot[1]}
+            precision={2}
             style={{
-              width: '2.75em',
+              width: '2.2em',
+              height: '1em',
+              overflow: 'hidden',
+              contain: 'strict',
               textAlign: 'right',
               display: 'inline-block',
             }}
-          >
-            <Printer accessor={state => state.rot[0]} precision={2} />
-          </div>
+          />
         </Tag>
         <Tag intent={Intent.PRIMARY} minimal={clip_y} fill>
-          <b>Y:</b>{' '}
-          <div
+          <b>Roll: </b> {}
+          <Printer
+            accessor={state => state.rot[0]}
+            precision={2}
             style={{
-              width: '2.75em',
+              width: '2.2em',
+              height: '1em',
+              overflow: 'hidden',
+              contain: 'strict',
               textAlign: 'right',
               display: 'inline-block',
             }}
-          >
-            <Printer accessor={state => state.rot[1]} precision={2} />
-          </div>
+          />
         </Tag>
         <Tag intent={Intent.DANGER} minimal={clip_z} fill>
-          <b>Z:</b>
-          <div
+          <b>Yaw: </b>
+          <Printer
+            accessor={state => state.rot[2]}
+            precision={2}
             style={{
-              width: '2.75em',
+              width: '2.2em',
+              height: '1em',
+              overflow: 'hidden',
+              contain: 'strict',
               textAlign: 'right',
               display: 'inline-block',
             }}
-          >
-            {' '}
-            <Printer accessor={state => state.rot[2]} precision={2} />
-          </div>
+          />
         </Tag>
       </Composition>
     </React.Fragment>
@@ -128,12 +136,12 @@ export const RateOfTurnChart = () => {
               <ChartContainer height="30vh">
                 <LineChart
                   dataSource={rateOfTurnDS}
-                  accessor={event => event[0] * (180 / Math.PI)}
+                  accessor={event => event[1] * (180 / Math.PI)}
                   color={Colors.GREEN4}
                 />
                 <LineChart
                   dataSource={rateOfTurnDS}
-                  accessor={event => event[1] * (180 / Math.PI)}
+                  accessor={event => event[0] * (180 / Math.PI)}
                   color={Colors.BLUE4}
                 />
                 <LineChart

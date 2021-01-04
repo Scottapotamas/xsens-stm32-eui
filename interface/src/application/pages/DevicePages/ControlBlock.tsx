@@ -226,9 +226,12 @@ const LoggingControls = () => {
   return (
     <React.Fragment>
       <PolledCSVLogger
-        dataSource={[]}
         interval={10}
-        columns={['x', 'y', 'z']}
+        columns={[
+          { dataSource: accDS, column: 'accx', accessor: event => event[0] },
+          { dataSource: accDS, column: 'accy', accessor: event => event[1] },
+          { dataSource: accDS, column: 'accz', accessor: event => event[2] },
+        ]}
       />
     </React.Fragment>
   )
