@@ -71,7 +71,7 @@ const ClippingLegend = () => {
           <b>Pitch: </b>
           <Printer
             accessor={state => state.rot[1]}
-            precision={2}
+            precision={1}
             style={{
               width: '2.2em',
               height: '1em',
@@ -86,7 +86,7 @@ const ClippingLegend = () => {
           <b>Roll: </b> {}
           <Printer
             accessor={state => state.rot[0]}
-            precision={2}
+            precision={1}
             style={{
               width: '2.2em',
               height: '1em',
@@ -101,7 +101,7 @@ const ClippingLegend = () => {
           <b>Yaw: </b>
           <Printer
             accessor={state => state.rot[2]}
-            precision={2}
+            precision={1}
             style={{
               width: '2.2em',
               height: '1em',

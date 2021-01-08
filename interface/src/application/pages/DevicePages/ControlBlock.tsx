@@ -39,7 +39,9 @@ const layoutDescription = `
         `
 
 export const ClippingStatus = () => {
-  const filter_ok = useHardwareState<boolean>(hwState => hwState.ok.filter_ok)!
+  const filter_ok = useHardwareState<boolean>(
+    hwState => hwState.ok.filter_valid,
+  )!
 
   const clip_acc_x = useHardwareState<boolean>(
     hwState => hwState.ok.clip_acc_x,
@@ -86,8 +88,8 @@ export const ClippingStatus = () => {
               <Tag
                 fill
                 large
-                intent={filter_ok ? Intent.WARNING : Intent.SUCCESS}
-                rightIcon={filter_ok ? IconNames.CROSS : IconNames.TICK}
+                intent={filter_ok ? Intent.SUCCESS : Intent.WARNING}
+                rightIcon={filter_ok ? IconNames.TICK : IconNames.CROSS}
               >
                 <div style={{ textAlign: 'center' }}>Motion Estimation</div>
               </Tag>
@@ -176,13 +178,6 @@ const CPUStatus = () => {
   )
 }
 
-// : string
-// info: string
-// date: string
-// time: string
-// type: string
-// name: string
-
 const TemperaturePressure = () => {
   return (
     <React.Fragment>
@@ -200,7 +195,7 @@ const TemperaturePressure = () => {
 
           <Box>Self-Test</Box>
           <Box>
-            <Printer accessor={state => state.ok.self_test} />
+            <Printer accessor={state => (state.ok.self_test ? 'OK' : 'FAIL')} />
           </Box>
 
           <Box>Time (Fine)</Box>
@@ -220,7 +215,12 @@ const TemperaturePressure = () => {
 }
 
 const accDS = new MessageDataSource('acc')
+const fraccDS = new MessageDataSource('fracc')
 const rotDS = new MessageDataSource('rot')
+const quatDS = new MessageDataSource('quat')
+const tempDS = new MessageDataSource('temp')
+const baroDS = new MessageDataSource('baro')
+const statusDS = new MessageDataSource('ok')
 
 const LoggingControls = () => {
   return (
@@ -228,9 +228,105 @@ const LoggingControls = () => {
       <PolledCSVLogger
         interval={10}
         columns={[
-          { dataSource: accDS, column: 'accx', accessor: event => event[0] },
-          { dataSource: accDS, column: 'accy', accessor: event => event[1] },
-          { dataSource: accDS, column: 'accz', accessor: event => event[2] },
+          {
+            dataSource: quatDS,
+            column: 'pitch',
+            accessor: event => event.pitch,
+          },
+          { dataSource: quatDS, column: 'roll', accessor: event => event.roll },
+          {
+            dataSource: quatDS,
+            column: 'heading',
+            accessor: event => event.heading,
+          },
+
+          { dataSource: quatDS, column: 'q0', accessor: event => event.q0 },
+          { dataSource: quatDS, column: 'q1', accessor: event => event.q1 },
+          { dataSource: quatDS, column: 'q2', accessor: event => event.q2 },
+          { dataSource: quatDS, column: 'q3', accessor: event => event.q3 },
+
+          { dataSource: accDS, column: 'accX', accessor: event => event[0] },
+          { dataSource: accDS, column: 'accY', accessor: event => event[1] },
+          { dataSource: accDS, column: 'accZ', accessor: event => event[2] },
+
+          {
+            dataSource: fraccDS,
+            column: 'freeaccX',
+            accessor: event => event[0],
+          },
+          {
+            dataSource: fraccDS,
+            column: 'freeaccY',
+            accessor: event => event[1],
+          },
+          {
+            dataSource: fraccDS,
+            column: 'freeaccZ',
+            accessor: event => event[2],
+          },
+
+          { dataSource: rotDS, column: 'rotX', accessor: event => event[0] },
+          { dataSource: rotDS, column: 'rotY', accessor: event => event[1] },
+          { dataSource: rotDS, column: 'rotZ', accessor: event => event[2] },
+
+          { dataSource: tempDS, column: 'imuTemp', accessor: event => event },
+          { dataSource: baroDS, column: 'pressure', accessor: event => event },
+
+          {
+            dataSource: statusDS,
+            column: 'status_filter',
+            accessor: event => event.filter_ok,
+          },
+          {
+            dataSource: statusDS,
+            column: 'status_clipping',
+            accessor: event => event.clipping,
+          },
+          {
+            dataSource: statusDS,
+            column: 'clip_accX',
+            accessor: event => event.clip_acc_x,
+          },
+          {
+            dataSource: statusDS,
+            column: 'clip_accY',
+            accessor: event => event.clip_acc_x,
+          },
+          {
+            dataSource: statusDS,
+            column: 'clip_accZ',
+            accessor: event => event.clip_acc_z,
+          },
+          {
+            dataSource: statusDS,
+            column: 'clip_gyroX',
+            accessor: event => event.clip_gyro_x,
+          },
+          {
+            dataSource: statusDS,
+            column: 'clip_gyroY',
+            accessor: event => event.clip_gyro_x,
+          },
+          {
+            dataSource: statusDS,
+            column: 'clip_gyroZ',
+            accessor: event => event.clip_gyro_z,
+          },
+          {
+            dataSource: statusDS,
+            column: 'clip_magX',
+            accessor: event => event.clip_mag_x,
+          },
+          {
+            dataSource: statusDS,
+            column: 'clip_magY',
+            accessor: event => event.clip_mag_x,
+          },
+          {
+            dataSource: statusDS,
+            column: 'clip_magZ',
+            accessor: event => event.clip_mag_z,
+          },
         ]}
       />
     </React.Fragment>

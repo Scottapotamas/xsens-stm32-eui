@@ -50,7 +50,13 @@ export const PoseChart = () => {
         {Areas => (
           <React.Fragment>
             <Areas.Title>
-              <div style={{ textAlign: 'left', marginLeft: '4em' }}>
+              <div
+                style={{
+                  textAlign: 'left',
+                  marginLeft: '4em',
+                  marginTop: '1em',
+                }}
+              >
                 <b>AHRS</b>
               </div>
             </Areas.Title>
@@ -61,19 +67,49 @@ export const PoseChart = () => {
                 justifyItems="end"
                 gapCol={10}
               >
-                <Tag intent={Intent.SUCCESS} minimal fill>
-                  <b>Pitch:</b>{' '}
-                  <Printer accessor={state => state.quat.pitch} precision={2} />
+                <Tag intent={Intent.SUCCESS} fill>
+                  <b>Pitch: </b>
+                  <Printer
+                    accessor={state => state.quat.pitch}
+                    precision={1}
+                    style={{
+                      width: '2.8em',
+                      height: '1em',
+                      overflow: 'hidden',
+                      contain: 'strict',
+                      textAlign: 'right',
+                      display: 'inline-block',
+                    }}
+                  />
                 </Tag>
-                <Tag intent={Intent.PRIMARY} minimal fill>
-                  <b>Roll:</b>{' '}
-                  <Printer accessor={state => state.quat.roll} precision={2} />
+                <Tag intent={Intent.PRIMARY} fill>
+                  <b>Roll: </b>
+                  <Printer
+                    accessor={state => state.quat.roll}
+                    precision={1}
+                    style={{
+                      width: '2.8em',
+                      height: '1em',
+                      overflow: 'hidden',
+                      contain: 'strict',
+                      textAlign: 'right',
+                      display: 'inline-block',
+                    }}
+                  />
                 </Tag>
-                <Tag intent={Intent.DANGER} minimal fill>
-                  <b>Yaw:</b>{' '}
+                <Tag intent={Intent.DANGER} fill>
+                  <b>Yaw: </b>
                   <Printer
                     accessor={state => state.quat.heading}
-                    precision={2}
+                    precision={1}
+                    style={{
+                      width: '2.8em',
+                      height: '1em',
+                      overflow: 'hidden',
+                      contain: 'strict',
+                      textAlign: 'right',
+                      display: 'inline-block',
+                    }}
                   />
                 </Tag>
               </Composition>

@@ -133,10 +133,10 @@ export const AccelerationChart = () => {
                 />
                 <RealTimeSlicingDomain
                   window={500}
-                  xMin={-15}
-                  xMax={15}
-                  yMin={-15}
-                  yMax={15}
+                  xMin={-10}
+                  xMax={10}
+                  yMin={-10}
+                  yMax={10}
                 />
                 <Fog color="#191b1d" />
                 <HorizontalAxis label="Latitudinal m/s²" />
