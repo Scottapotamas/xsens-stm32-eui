@@ -45,7 +45,7 @@ PRIVATE void AppTaskCommunication_eui_callback_pc( uint8_t message );
 
 PRIVATE void AppTaskCommunication_eui_callback_usb( uint8_t message );
 
-PRIVATE void AppTaskCommunication_imu_callback_event( EventFlag_t event, EventData_t *mtdata );
+PRIVATE void AppTaskCommunication_imu_callback_event( XsensEventFlag_t event, XsensEventData_t *mtdata );
 
 enum
 {
@@ -60,7 +60,7 @@ eui_interface_t communication_interface[] = {
     EUI_INTERFACE_CB( &AppTaskCommunication_tx_put_usb, &AppTaskCommunication_eui_callback_usb ),
 };
 
-interface_t imu_interface = { .event_cb = &AppTaskCommunication_imu_callback_event, .output_cb = &AppTaskCommunication_tx_put_imu };
+xsens_interface_t imu_interface = { .event_cb = &AppTaskCommunication_imu_callback_event, .output_cb = &AppTaskCommunication_tx_put_imu };
 
 /* ----- Public Functions --------------------------------------------------- */
 
@@ -257,7 +257,7 @@ AppTaskCommunication_eui_callback_usb( uint8_t message )
     configuration_eui_callback( LINK_USB, &communication_interface[LINK_USB], message );
 }
 
-PRIVATE void AppTaskCommunication_imu_callback_event( EventFlag_t event, EventData_t *mtdata )
+PRIVATE void AppTaskCommunication_imu_callback_event( XsensEventFlag_t event, XsensEventData_t *mtdata )
 {
     // Got IMU data?
     switch( event )
@@ -280,7 +280,7 @@ PRIVATE void AppTaskCommunication_imu_callback_event( EventFlag_t event, EventDa
                 config_update_quaternion( mtdata->data.f4x4[0], mtdata->data.f4x4[1], mtdata->data.f4x4[2], mtdata->data.f4x4[3] );
 
 //                float pry[3] = { 0 };
-//                convert_quaternion_to_euler( mtdata->data.f4x4, pry );
+//                xsens_quaternion_to_euler( mtdata->data.f4x4, pry );
 //
 //                // Convert from radians to degrees
 //                pry[0] *= (180.0 / 3.14159265358979323846);
