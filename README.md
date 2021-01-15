@@ -2,7 +2,7 @@
 
 This is an example project which acts as a basic implementation of my [`xsens-mti`](https://github.com/Scottapotamas/xsens-mti) library, running on a STM32F4 Discovery board.
 
-This project also integrates [electricui-embedded](https://github.com/electricui/electricui-embedded) for real-time charting of variables from the STM32.
+This project also integrates [`electricui-embedded`](https://github.com/electricui/electricui-embedded) for real-time charting of variables from the STM32.
 
 [![Youtube video of motion data plotting in car](images/youtube-screenshot.png)](https://youtu.be/H4v7SLDFyrU "Click to watch on YouTube")
 
@@ -20,9 +20,11 @@ At some point in the future, I might perform configuration of the IMU from the S
 
 This project is intended for use with the ever-popular green [STM32F407 Discovery Board](https://www.st.com/en/evaluation-tools/stm32f4discovery.html).
 
-A USB-UART adapter is needed to connect the STM32 to the PC for realtime display of data connected to USART2 with PD5/PD6.
+![xsens stm32 wiring diagram](images/xsens-diagram.jpg)
 
-The IMU's RS232 connection is connected to a MAX232 transceiver IC, ultimately interfacing to the STM32's USART1 with PB6/PB7.
+A USB-UART adapter is needed to connect the STM32 to the PC for realtime display of data connected to USART2 with `PD5`/`PD6`.
+
+The IMU's RS232 lines are connected to a MAX232 transceiver IC, ultimately interfacing to the STM32's USART1 with `PB6`/`PB7`.
 
 Ground is common between the USB-UART, STM32 and xsens hardware.
 
