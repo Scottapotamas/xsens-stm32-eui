@@ -25,7 +25,7 @@ import { BinaryLargePacketHandlerPipeline } from '@electricui/protocol-binary-la
 import { COBSPipeline } from '@electricui/protocol-binary-cobs'
 import { HeartbeatConnectionMetadataReporter } from '@electricui/protocol-binary-heartbeats'
 import SerialPort from 'serialport'
-import USB from '@electricui/node-usb'
+import USB from 'usb'
 import { USBHintProducer } from '@electricui/transport-node-usb-discovery'
 import { customCodecs } from './codecs'
 import { defaultCodecList } from '@electricui/protocol-binary-codecs'
@@ -69,8 +69,9 @@ const serialTransportFactory = new TransportFactory(
     )
 
     const codecPipeline = new CodecDuplexPipeline()
-
+    // Add custom codecs after the default ones.
     codecPipeline.addCodecs(customCodecs)
+    // Add the default codecs first so that queries are dealt with preferentially
     codecPipeline.addCodecs(defaultCodecList)
 
     const largePacketPipeline = new BinaryLargePacketHandlerPipeline({

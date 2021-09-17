@@ -17,12 +17,6 @@ declare global {
 }
 
 // Export custom struct types for use in both codecs and the application
-export type LEDSettings = {
-  glow_time: number
-  enable: number
-}
-
-
 export type SystemInfo = {
   cpu_load: number
   cpu_clock: number
@@ -73,4 +67,4 @@ export type PoseConverted = {
 }
 
 // This exports these types into the dependency tree.
-export {}
+export { }

@@ -20,7 +20,6 @@ import {
   IntervalRequester,
   useHardwareState,
 } from '@electricui/components-core'
-import { LightBulb } from '../../components/LightBulb'
 import { MessageDataSource } from '@electricui/core-timeseries'
 import React from 'react'
 import { RouteComponentProps } from '@reach/router'

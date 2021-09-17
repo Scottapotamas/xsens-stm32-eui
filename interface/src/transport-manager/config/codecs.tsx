@@ -192,7 +192,7 @@ export class IMUStatusCodec extends Codec<IMUStatus> {
   }
 
   encode(payload: IMUStatus): Buffer {
-    throw new Error('IMU Status word bits is read-only')
+    throw new Error('IMU Status word bits are read-only')
   }
 
   decode(payload: Buffer): IMUStatus {

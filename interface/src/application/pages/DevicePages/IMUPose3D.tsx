@@ -15,7 +15,6 @@ import {
   GLTF,
   OrbitControls,
 } from '@electricui/components-desktop-three'
-import { RoundedBox } from '@react-three/drei'
 
 import IMUModel from '../../components/xsens-mti300/xsens-mti300.glb'
 
@@ -29,14 +28,11 @@ export const IMUPose3D = () => {
           fov: 50,
           position: [0, 0, -85],
         }}
-        style={{ width: '100%', height: '25vh' }}
+        // style={{ width: '100%', height: '25vh' }}
       >
         {/* <OrbitControls /> */}
         <ControlledGroup
           position={[0, 0, 0]}
-          // positionAccessor={state => {
-          //   return [state.acc[1] / 10, state.acc[2] / 10, state.acc[0] / 10]
-          // }}
           quaternionAccessor={state => {
             return [state.quat.q2, state.quat.q3, state.quat.q1, state.quat.q0]
           }}
