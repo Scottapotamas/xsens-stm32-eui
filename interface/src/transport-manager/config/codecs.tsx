@@ -6,6 +6,7 @@ import {
   FirmwareBuildInfo,
   IMUStatus,
   PoseConverted,
+  MSGID,
 } from '../../application/typedState'
 import { SmartBuffer } from 'smart-buffer'
 
@@ -233,7 +234,7 @@ function convert_quaternion_to_euler(quat: number[]): number[] {
 
 export class PoseConversionCodec extends Codec {
   filter(message: Message): boolean {
-    return message.messageID === 'quat'
+    return message.messageID === MSGID.IMU_POSE_QUAT
   }
 
   encode(payload: PoseConverted): Buffer {

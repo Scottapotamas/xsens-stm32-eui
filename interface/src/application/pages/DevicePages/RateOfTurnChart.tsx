@@ -33,13 +33,14 @@ import {
 } from '@electricui/components-desktop-blueprint'
 import { Printer } from '@electricui/components-desktop'
 import { IconNames } from '@blueprintjs/icons'
+import { MSGID } from 'src/application/typedState'
 
 const layoutDescription = `
         Title Legend
         Chart Chart
       `
 
-const rateOfTurnDS = new MessageDataSource('rot')
+const rateOfTurnDS = new MessageDataSource(MSGID.IMU_ROT)
 
 const clipAnnotationDS = new MessageDataSource('ok', (message, emit) => {
   // Build the event at the current time
@@ -70,7 +71,7 @@ const ClippingLegend = () => {
         <Tag intent={Intent.SUCCESS} minimal={clip_x} fill>
           <b>Pitch: </b>
           <Printer
-            accessor={state => state.rot[1]}
+            accessor={state => state[MSGID.IMU_ROT][1]}
             precision={1}
             style={{
               width: '2.2em',
@@ -85,7 +86,7 @@ const ClippingLegend = () => {
         <Tag intent={Intent.PRIMARY} minimal={clip_y} fill>
           <b>Roll: </b> {}
           <Printer
-            accessor={state => state.rot[0]}
+            accessor={state => state[MSGID.IMU_ROT][0]}
             precision={1}
             style={{
               width: '2.2em',
@@ -100,7 +101,7 @@ const ClippingLegend = () => {
         <Tag intent={Intent.DANGER} minimal={clip_z} fill>
           <b>Yaw: </b>
           <Printer
-            accessor={state => state.rot[2]}
+            accessor={state => state[MSGID.IMU_ROT][2]}
             precision={1}
             style={{
               width: '2.2em',

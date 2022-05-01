@@ -1,3 +1,21 @@
+export enum MSGID {
+  NICKNAME = 'name',
+  RESET_TYPE = 'reset_type',
+  SYSTEM_STATUS = 'sys',
+  FIRMWARE_BUILD = 'fwb',
+  TASK_LIST = 'tasks',
+
+  IMU_POSE_QUAT = 'q',
+  IMU_POSE_EULER = 'p',
+  IMU_ACC = 'a',
+  IMU_ROT = 'r',
+  IMU_FREE_ACC = 'f',
+  IMU_MAG = 'm',
+  IMU_PRESSURE = 'b',
+  IMU_TEMPERATURE = 't',
+  IMU_STATUS = 'o',
+}
+
 /**
  * To strictly type all accessors and writers, remove
  *

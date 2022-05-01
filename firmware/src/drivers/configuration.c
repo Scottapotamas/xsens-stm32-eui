@@ -4,6 +4,7 @@
 
 #include "configuration.h"
 #include "electricui.h"
+#include "eui_msgid.h"
 
 #include "app_task_ids.h"
 #include "app_tasks.h"
@@ -66,21 +67,21 @@ float imu_temperature = 0;
 
 eui_message_t ui_variables[] = {
     // Higher level system setup information
-    EUI_CHAR_ARRAY_RO( "name", device_nickname ),
-    EUI_CHAR_ARRAY_RO( "reset_type", reset_cause ),
-    EUI_CUSTOM( "sys", sys_stats ),
-    EUI_CUSTOM( "fwb", fw_info ),
-    EUI_CUSTOM( "tasks", task_info ),
+    EUI_CHAR_ARRAY_RO( MSGID_NICKNAME, device_nickname ),
+    EUI_CHAR_ARRAY_RO( MSGID_RESET_TYPE, reset_cause ),
+    EUI_CUSTOM( MSGID_SYSTEM_STATUS, sys_stats ),
+    EUI_CUSTOM( MSGID_FIRMWARE_BUILD, fw_info ),
+    EUI_CUSTOM( MSGID_TASK_LIST, task_info ),
 
-    EUI_FLOAT_ARRAY_RO( "quat", quaternion ),
-    EUI_FLOAT_ARRAY_RO( "pose", pry ),
-    EUI_FLOAT_ARRAY_RO( "acc", acceleration ),
-    EUI_FLOAT_ARRAY_RO( "fracc", free_acceleration ),
-    EUI_FLOAT_ARRAY_RO( "rot", rate_of_turn ),
-    EUI_FLOAT_ARRAY_RO( "mag", magnetics ),
-    EUI_UINT32_RO( "baro", imu_pressure ),
-    EUI_FLOAT_RO( "temp", imu_temperature ),
-    EUI_CUSTOM_RO( "ok", sensor_status),
+    EUI_FLOAT_ARRAY_RO( MSGID_IMU_POSE_QUAT, quaternion ),
+    EUI_FLOAT_ARRAY_RO( MSGID_IMU_POSE_EULER, pry ),
+    EUI_FLOAT_ARRAY_RO( MSGID_IMU_ACC, acceleration ),
+    EUI_FLOAT_ARRAY_RO( MSGID_IMU_ROT, rate_of_turn ),
+    EUI_FLOAT_ARRAY_RO( MSGID_IMU_FREE_ACC, free_acceleration ),
+    EUI_FLOAT_ARRAY_RO( MSGID_IMU_MAG, magnetics ),
+    EUI_UINT32_RO( MSGID_IMU_PRESSURE, imu_pressure ),
+    EUI_FLOAT_RO( MSGID_IMU_TEMPERATURE, imu_temperature ),
+    EUI_CUSTOM_RO( MSGID_IMU_STATUS, sensor_status),
 };
 
 /* ----- Public Functions --------------------------------------------------- */
@@ -240,7 +241,7 @@ config_update_quaternion( float q0, float q1, float q2, float q3 )
     quaternion[2] = q2;
     quaternion[3] = q3;
 
-    eui_send_tracked( "quat" );
+    eui_send_tracked( MSGID_IMU_POSE_QUAT );
 }
 
 PUBLIC void
@@ -249,7 +250,7 @@ config_update_pry( float p, float r, float y )
     pry[0] = p;
     pry[1] = r;
     pry[2] = y;
-    eui_send_tracked( "pose" );
+    eui_send_tracked( MSGID_IMU_POSE_EULER );
 }
 
 PUBLIC void
@@ -258,7 +259,7 @@ config_update_acceleration( float x, float y, float z )
     acceleration[0] = x;
     acceleration[1] = y;
     acceleration[2] = z;
-    eui_send_tracked( "acc" );
+    eui_send_tracked( MSGID_IMU_ACC );
 }
 
 PUBLIC void
@@ -267,7 +268,7 @@ config_update_free_acceleration( float x, float y, float z )
     free_acceleration[0] = x;
     free_acceleration[1] = y;
     free_acceleration[2] = z;
-    eui_send_tracked( "fracc" );
+    eui_send_tracked( MSGID_IMU_FREE_ACC );
 }
 
 PUBLIC void
@@ -276,7 +277,7 @@ config_update_rate_of_turn( float x, float y, float z )
     rate_of_turn[0] = x;
     rate_of_turn[1] = y;
     rate_of_turn[2] = z;
-    eui_send_tracked( "rot" );
+    eui_send_tracked( MSGID_IMU_ROT );
 }
 
 PUBLIC void
@@ -285,21 +286,21 @@ config_update_magnetometer( float x, float y, float z )
     magnetics[0] = x;
     magnetics[1] = y;
     magnetics[2] = z;
-    eui_send_tracked( "mag" );
+    eui_send_tracked( MSGID_IMU_MAG );
 }
 
 PUBLIC void
 config_update_pressure( uint32_t pressure )
 {
     imu_pressure = pressure;
-    eui_send_tracked( "baro" );
+    eui_send_tracked( MSGID_IMU_PRESSURE );
 }
 
 PUBLIC void
 config_update_imu_temperature( float temp )
 {
     imu_temperature = temp;
-    eui_send_tracked( "temp" );
+    eui_send_tracked( MSGID_IMU_TEMPERATURE );
 }
 
 
@@ -310,7 +311,7 @@ config_update_imu_status_fields( uint32_t word )
     if( sensor_status != word )
     {
         sensor_status = word;
-        eui_send_tracked( "ok" );
+        eui_send_tracked( MSGID_IMU_STATUS );
     }
 }
 

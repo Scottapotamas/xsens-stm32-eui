@@ -34,14 +34,14 @@ import {
 import { Printer } from '@electricui/components-desktop'
 import { IconNames } from '@blueprintjs/icons'
 
-import { PoseConverted } from '../../typedState'
+import { MSGID, PoseConverted } from '../../typedState'
 
 const layoutDescription = `
         Title Legend
         Chart Chart
       `
 
-const poseDS = new MessageDataSource('quat')
+const poseDS = new MessageDataSource(MSGID.IMU_POSE_QUAT)
 
 export const PoseChart = () => {
   return (
@@ -70,7 +70,7 @@ export const PoseChart = () => {
                 <Tag intent={Intent.SUCCESS} fill>
                   <b>Pitch: </b>
                   <Printer
-                    accessor={state => state.quat.pitch}
+                    accessor={state => state[MSGID.IMU_POSE_QUAT].pitch}
                     precision={1}
                     style={{
                       width: '2.8em',
@@ -85,7 +85,7 @@ export const PoseChart = () => {
                 <Tag intent={Intent.PRIMARY} fill>
                   <b>Roll: </b>
                   <Printer
-                    accessor={state => state.quat.roll}
+                    accessor={state => state[MSGID.IMU_POSE_QUAT].roll}
                     precision={1}
                     style={{
                       width: '2.8em',
@@ -100,7 +100,7 @@ export const PoseChart = () => {
                 <Tag intent={Intent.DANGER} fill>
                   <b>Yaw: </b>
                   <Printer
-                    accessor={state => state.quat.heading}
+                    accessor={state => state[MSGID.IMU_POSE_QUAT].heading}
                     precision={1}
                     style={{
                       width: '2.8em',

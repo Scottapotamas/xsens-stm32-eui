@@ -31,13 +31,14 @@ import {
 } from '@electricui/components-desktop-blueprint'
 import { Printer } from '@electricui/components-desktop'
 import { IconNames } from '@blueprintjs/icons'
+import { MSGID } from 'src/application/typedState'
 
 const layoutDescription = `
         Title Legend
         Chart Chart
       `
 
-const magDS = new MessageDataSource('mag')
+const magDS = new MessageDataSource(MSGID.IMU_MAG)
 
 export const MagnetometerChart = () => {
   return (
@@ -59,15 +60,15 @@ export const MagnetometerChart = () => {
               >
                 <Tag intent={Intent.SUCCESS} minimal fill>
                   <b>X:</b>{' '}
-                  <Printer accessor={state => state.mag[0]} precision={2} />
+                  <Printer accessor={state => state[MSGID.IMU_MAG][0]} precision={2} />
                 </Tag>
                 <Tag intent={Intent.PRIMARY} minimal fill>
                   <b>Y:</b>{' '}
-                  <Printer accessor={state => state.mag[1]} precision={2} />
+                  <Printer accessor={state => state[MSGID.IMU_MAG][1]} precision={2} />
                 </Tag>
                 <Tag intent={Intent.DANGER} minimal fill>
                   <b>Z:</b>{' '}
-                  <Printer accessor={state => state.mag[2]} precision={2} />
+                  <Printer accessor={state => state[MSGID.IMU_MAG][2]} precision={2} />
                 </Tag>
               </Composition>
             </Areas.Legend>

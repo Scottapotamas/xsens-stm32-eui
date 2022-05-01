@@ -35,18 +35,19 @@ import {
 } from '@electricui/components-desktop-blueprint'
 import { Printer } from '@electricui/components-desktop'
 import { IconNames } from '@blueprintjs/icons'
+import { MSGID } from 'src/application/typedState'
 
 const layoutDescription = `
         Title Legend
         Chart Chart
       `
 
-const accDS = new MessageDataSource('acc')
+const accDS = new MessageDataSource(MSGID.IMU_ACC)
 
 const ClippingLegend = () => {
-  const clip_x = useHardwareState<boolean>(hwState => hwState.ok.clip_acc_x)!
-  const clip_y = useHardwareState<boolean>(hwState => hwState.ok.clip_acc_y)!
-  const clip_z = useHardwareState<boolean>(hwState => hwState.ok.clip_acc_z)!
+  const clip_x = useHardwareState<boolean>(hwState => hwState[MSGID.IMU_STATUS].clip_acc_x)!
+  const clip_y = useHardwareState<boolean>(hwState => hwState[MSGID.IMU_STATUS].clip_acc_y)!
+  const clip_z = useHardwareState<boolean>(hwState => hwState[MSGID.IMU_STATUS].clip_acc_z)!
 
   return (
     <React.Fragment>
@@ -59,7 +60,7 @@ const ClippingLegend = () => {
         <Tag intent={Intent.SUCCESS} minimal={clip_x} fill>
           <b>X:</b>
           <Printer
-            accessor={state => state.acc[0]}
+            accessor={state => state[MSGID.IMU_ACC][0]}
             precision={1}
             style={{
               width: '2.2em',
@@ -75,7 +76,7 @@ const ClippingLegend = () => {
           <b>Y:</b>
 
           <Printer
-            accessor={state => state.acc[1]}
+            accessor={state => state[MSGID.IMU_ACC][1]}
             precision={1}
             style={{
               width: '2.2em',
@@ -90,7 +91,7 @@ const ClippingLegend = () => {
         <Tag intent={Intent.DANGER} minimal={clip_z} fill>
           <b>Z: </b>
           <Printer
-            accessor={state => state.acc[2]}
+            accessor={state => state[MSGID.IMU_ACC][2]}
             precision={1}
             style={{
               width: '2.2em',

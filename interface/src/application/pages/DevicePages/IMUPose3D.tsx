@@ -17,6 +17,7 @@ import {
 } from '@electricui/components-desktop-three'
 
 import IMUModel from '../../components/xsens-mti300/xsens-mti300.glb'
+import { MSGID } from 'src/application/typedState'
 
 GLTF.preload(IMUModel)
 
@@ -34,7 +35,7 @@ export const IMUPose3D = () => {
         <ControlledGroup
           position={[0, 0, 0]}
           quaternionAccessor={state => {
-            return [state.quat.q2, state.quat.q3, state.quat.q1, state.quat.q0]
+            return [state[MSGID.IMU_POSE_QUAT].q2, state[MSGID.IMU_POSE_QUAT].q3, state[MSGID.IMU_POSE_QUAT].q1, state[MSGID.IMU_POSE_QUAT].q0]
           }}
         >
           <GLTF asset={IMUModel} />

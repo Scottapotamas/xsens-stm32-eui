@@ -22,13 +22,14 @@ import {
 import { MessageDataSource } from '@electricui/core-timeseries'
 import React from 'react'
 import { IconNames } from '@blueprintjs/icons'
+import { MSGID } from 'src/application/typedState'
 
 const layoutDescription = `
         Title
         Chart
       `
 
-const accDS = new MessageDataSource('acc')
+const accDS = new MessageDataSource(MSGID.IMU_ACC)
 
 let triggerMax: number = 0
 const triggerMaxDecay: number = 0.1

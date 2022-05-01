@@ -32,6 +32,7 @@ import {
 } from '@electricui/components-desktop-blueprint'
 import { Printer } from '@electricui/components-desktop'
 import { IconNames } from '@blueprintjs/icons'
+import { MSGID } from 'src/application/typedState'
 
 const layoutDescription = `
           Filter Filter Filter
@@ -152,8 +153,8 @@ const CPUStatus = () => {
         <Composition templateCols="1fr 1fr">
           <Box>CPU</Box>
           <Box>
-            <Printer accessor={state => state.sys.cpu_load} precision={1} />% @{' '}
-            <Printer accessor={state => state.sys.cpu_clock} precision={1} />{' '}
+            <Printer accessor={state => state[MSGID.SYSTEM_STATUS].cpu_load} precision={1} />% @{' '}
+            <Printer accessor={state => state[MSGID.SYSTEM_STATUS].cpu_clock} precision={1} />{' '}
             MHz
           </Box>
           <Box></Box>
@@ -162,15 +163,15 @@ const CPUStatus = () => {
           </Box>
           <Box>Branch</Box>
           <Box>
-            <Printer accessor={state => state.fwb.branch} />
+            <Printer accessor={state => state[MSGID.FIRMWARE_BUILD].branch} />
           </Box>
           <Box>Date</Box>
           <Box>
-            <Printer accessor={state => state.fwb.date} />
+            <Printer accessor={state => state[MSGID.FIRMWARE_BUILD].date} />
           </Box>
           <Box>Hash</Box>
           <Box>
-            <Printer accessor={state => state.fwb.info} />
+            <Printer accessor={state => state[MSGID.FIRMWARE_BUILD].info} />
           </Box>
         </Composition>
       </Callout>
@@ -195,18 +196,18 @@ const TemperaturePressure = () => {
 
           <Box>Self-Test</Box>
           <Box>
-            <Printer accessor={state => (state.ok.self_test ? 'OK' : 'FAIL')} />
+            <Printer accessor={state => (state[MSGID.IMU_STATUS].self_test ? 'OK' : 'FAIL')} />
           </Box>
 
           <Box>Time (Fine)</Box>
           <Box>xxx </Box>
           <Box>Temperature</Box>
           <Box>
-            <Printer accessor="temp" precision={1} /> °C
+            <Printer accessor={MSGID.IMU_TEMPERATURE} precision={1} /> °C
           </Box>
           <Box>Pressure</Box>
           <Box>
-            <Printer accessor={state => state.baro / 100} precision={1} /> hPa
+            <Printer accessor={state => state[MSGID.IMU_PRESSURE] / 100} precision={1} /> hPa
           </Box>
         </Composition>
       </Callout>
@@ -214,13 +215,13 @@ const TemperaturePressure = () => {
   )
 }
 
-const accDS = new MessageDataSource('acc')
-const fraccDS = new MessageDataSource('fracc')
-const rotDS = new MessageDataSource('rot')
-const quatDS = new MessageDataSource('quat')
-const tempDS = new MessageDataSource('temp')
-const baroDS = new MessageDataSource('baro')
-const statusDS = new MessageDataSource('ok')
+const accDS = new MessageDataSource(MSGID.IMU_ACC)
+const fraccDS = new MessageDataSource(MSGID.IMU_FREE_ACC)
+const rotDS = new MessageDataSource(MSGID.IMU_ROT)
+const quatDS = new MessageDataSource(MSGID.IMU_POSE_QUAT)
+const tempDS = new MessageDataSource(MSGID.IMU_TEMPERATURE)
+const baroDS = new MessageDataSource(MSGID.IMU_PRESSURE)
+const statusDS = new MessageDataSource(MSGID.IMU_STATUS)
 
 const LoggingControls = () => {
   return (
