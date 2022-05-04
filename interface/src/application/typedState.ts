@@ -27,6 +27,9 @@ declare global {
   interface ElectricUIDeveloperState {
     [messageID: string]: any
 
+
+    [MSGID.IMU_STATUS]: IMUStatus
+
     // Example messageID typings
     led_blink: number
     led_state: number

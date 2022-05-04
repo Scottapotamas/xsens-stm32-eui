@@ -17,14 +17,10 @@ class RequestName extends DiscoveryMetadataRequester {
     return true
   }
 
-  requestMetadata(device: Device) {
+  requestMetadata(device: Device, cancellationToken: CancellationToken) {
     const nameRequest = new Message('name', null)
     nameRequest.metadata.query = true
     nameRequest.metadata.internal = false
-
-    const cancellationToken = new CancellationToken(
-      'request name metadata',
-    ).deadline(1_000)
 
     return device
       .write(nameRequest, cancellationToken)

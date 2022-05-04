@@ -7,6 +7,13 @@ import {
   ElectronIPCRemoteQueryExecutor,
   QueryableMessageIDProvider,
 } from '@electricui/core-timeseries'
+import {
+  DataSource,
+  PersistenceEngineMemory,
+} from '@electricui/core-timeseries'
+
+import './styles.css'
+import { MSGID } from 'src/application/typedState'
 
 const root = document.createElement('div')
 document.body.appendChild(root)
@@ -23,3 +30,24 @@ const messageIDQueryable = new QueryableMessageIDProvider(
 if (module.hot) {
   module.hot.accept('./config', () => hotReloadHandler(root, deviceManager))
 }
+
+messageIDQueryable.setPersistenceEngineFactory(
+  MSGID.IMU_ACC,
+  (dataSource: DataSource) => {
+    return new PersistenceEngineMemory(40_000)
+  },
+)
+
+messageIDQueryable.setPersistenceEngineFactory(
+  MSGID.IMU_ROT,
+  (dataSource: DataSource) => {
+    return new PersistenceEngineMemory(40_000)
+  },
+)
+
+messageIDQueryable.setPersistenceEngineFactory(
+  MSGID.IMU_POSE_QUAT,
+  (dataSource: DataSource) => {
+    return new PersistenceEngineMemory(20_000)
+  },
+)
